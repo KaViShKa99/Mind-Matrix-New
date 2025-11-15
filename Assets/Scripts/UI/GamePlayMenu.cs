@@ -14,7 +14,7 @@ public class GamePlayMenu : MonoBehaviour
     public Sprite playSprite;       // Image to show when game is paused
     public Image pauseButtonImage;  
     public PopupBoxUI pauseMenuUI;
-    public PopupBoxUI rertyLoadingScreen;
+    public PopupBoxUI rertyLoadingUI;
     private int nextLevel;
     private int currentLevel;
     public HintSystem hintSystem;    // public LevelDetailsManager levelDetailsManager;
@@ -68,8 +68,8 @@ public class GamePlayMenu : MonoBehaviour
 
     private IEnumerator LoadLevelAfterAd(string sceneName)
     {
-        if (loadingUI != null)
-            loadingUI.SetActive(true);
+        if (rertyLoadingUI != null)
+            rertyLoadingUI.ShowPopup();
 
         yield return new WaitForSeconds(0.2f);
 

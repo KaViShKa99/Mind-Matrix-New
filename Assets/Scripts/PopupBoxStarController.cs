@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PopupBoxController : MonoBehaviour
+public class PopupBoxStarController : MonoBehaviour
 {
     public Animator star1Animator;
     public Animator star2Animator;

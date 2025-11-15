@@ -1,36 +1,3 @@
-// using UnityEngine;
-// using UnityEngine.EventSystems;
-
-// public class Tile : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
-// {
-//     public TileManager tileManager;
-//     private Vector2 pointerDownPos;
-
-//     void Start()
-//     {
-//         if (tileManager == null)
-//             tileManager = Object.FindFirstObjectByType<TileManager>();
-//     }
-
-//     public void OnPointerDown(PointerEventData eventData)
-//     {
-//         pointerDownPos = eventData.position;
-//     }
-
-//     public void OnPointerUp(PointerEventData eventData)
-//     {
-//         Vector2 pointerUpPos = eventData.position;
-//         Vector2 swipe = pointerUpPos - pointerDownPos;
-
-//         if (swipe.magnitude < 30f)
-//         {
-//             // Tap
-//             tileManager.TryMoveTile(transform);
-//             return;
-//         }
-//         // tileManager.SwipeTile(transform, swipe);
-//     }
-// }
 using UnityEngine;
 using UnityEngine.EventSystems;
 

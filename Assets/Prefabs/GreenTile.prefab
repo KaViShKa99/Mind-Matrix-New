@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 5121766427430914497}
   - component: {fileID: 3648484680866485720}
   - component: {fileID: 9054850466680672371}
-  - component: {fileID: 8819024384704693234}
   - component: {fileID: 6169342092019953509}
   - component: {fileID: 7371728232442456367}
   - component: {fileID: -902451284870426849}
@@ -216,19 +215,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8819024384704693234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7306195348855371053}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4a653e58a34d448bae21a2ae0b47b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tile
-  manager: {fileID: 0}
 --- !u!114 &6169342092019953509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,3 +257,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d812f09f4f58490fbbe422e3f26debe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tile
+  tileManager: {fileID: 0}
+  swipeThreshold: 50
