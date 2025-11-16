@@ -57,7 +57,7 @@ public class PuzzleManager : MonoBehaviour
         // Create tiles and shuffle
         generator.GenerateTilesInOrder();
         generator.ShuffleTiles(shuffleMoves);
-        LevelDetailsManager.Instance.SetUIDetails(currentLevel,moveCount,elapsedTime);
+        LevelDetailsManager.Instance.SetUIDetails(currentLevel,moveCount,elapsedTime,gridSize);
 
         checker.CheckCorrectTiles();
 

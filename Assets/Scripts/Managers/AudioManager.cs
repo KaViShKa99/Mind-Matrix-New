@@ -87,28 +87,28 @@ public class AudioManager : MonoBehaviour
     // 🖱️ UI button click
     public void PlayButtonClick()
     {
-        Debug.Log("🔘 Button click sound: " + (buttonClickSound != null ? buttonClickSound.name : "Missing Clip"));
+        // Debug.Log("🔘 Button click sound: " + (buttonClickSound != null ? buttonClickSound.name : "Missing Clip"));
         PlaySFX(buttonClickSound);
     }
 
     // 🧩 Tile move
     public void PlayTileSlide()
     {
-        Debug.Log("🧱 Tile move sound: " + (tileMoveSound != null ? tileMoveSound.name : "Missing Clip"));
+        // Debug.Log("🧱 Tile move sound: " + (tileMoveSound != null ? tileMoveSound.name : "Missing Clip"));
         PlaySFX(tileMoveSound);
     }
 
     // ☠️ Game over
     public void PlayGameOver()
     {
-        Debug.Log("💀 Game over sound: " + (gameOverSound != null ? gameOverSound.name : "Missing Clip"));
+        // Debug.Log("💀 Game over sound: " + (gameOverSound != null ? gameOverSound.name : "Missing Clip"));
         PlaySFX(gameOverSound);
     }
 
     // 🏆 Level complete / win
     public void PlayLevelComplete()
     {
-        Debug.Log("🏆 Level complete sound: " + (gameWonSound != null ? gameWonSound.name : "Missing Clip"));
+        // Debug.Log("🏆 Level complete sound: " + (gameWonSound != null ? gameWonSound.name : "Missing Clip"));
         PlaySFX(gameWonSound);
     }
 

@@ -76,37 +76,6 @@ public class GamePlayMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    // public void Retry()
-    // {
-    //     currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
-
-    //     PlayerPrefs.SetInt("SelectedLevel", currentLevel);
-
-    //     // string sceneToLoad = currentLevel < 13 ? "GameLevel3by3Scene" : "GameLevel4by4Scene";
-
-    //     string sceneToLoad = currentLevel < 13 
-    //             ? "GameLevel3by3Scene" 
-    //             : currentLevel < 29 
-    //                 ? "GameLevel4by4Scene" 
-    //                 : "GameLevel5by5Scene";
-
-    //     // SceneManager.LoadScene(sceneToLoad);
-
-    //     if (AdsManager.Instance != null)
-    //     {
-    //         AdsManager.Instance.ShowInterstitial(() =>
-    //         {
-    //             StartCoroutine(PlaySoundThenLoad(sceneToLoad));
-    //         });
-    //     }
-    //     else
-    //     {
-    //         Debug.LogWarning("⚠️ AdsManager not found — showing hint directly.");
-    //         StartCoroutine(PlaySoundThenLoad(sceneToLoad));
-    //     }
-
-    // }
-
     public void ShowHint()
     {
         LevelDetailsManager.Instance.StopTimer();

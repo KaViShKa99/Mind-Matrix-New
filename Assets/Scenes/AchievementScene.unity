@@ -480,9 +480,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.67058825, g: 0.4, b: 0.23921569, a: 0.5372549}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.05490196}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.91764706, g: 0.8156863, b: 0.5803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -893,7 +893,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.5
+  m_MatchWidthOrHeight: 0.7
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -935,11 +935,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1850713193}
+  - {fileID: 545562834}
   - {fileID: 834502429}
   - {fileID: 903426322}
   - {fileID: 349710489}
   - {fileID: 358218584}
-  - {fileID: 545562834}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9575472, b: 0.9575472, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1784,8 +1784,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1019556488
@@ -1989,7 +1989,7 @@ RectTransform:
   m_Father: {fileID: 992805649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2158,60 +2158,88 @@ MonoBehaviour:
   scrollRect: {fileID: 1516787851}
   popup: {fileID: 349710490}
   achievements:
-  - title: First Solve!
+  - id: first_solve
+    title: First Solve!
     description: Complete your very first puzzle.
     icon: {fileID: -855298285791758126, guid: cdadf21997e554c4180b70dbd336c6c6, type: 3}
     isUnlocked: 0
-  - title: Puzzle Apprentice
+  - id: comp_10_puzzle
+    title: Puzzle Apprentice
     description: Complete 10 unique puzzles.
+    icon: {fileID: 4273009453654612066, guid: f078df22deb144683bac5480cc75b22c, type: 3}
+    isUnlocked: 0
+  - id: comp_20_puzzle
+    title: Grid Grasper
+    description: Complete 20 unique puzzles.
     icon: {fileID: 6937817954938267909, guid: 064430ca5f19b413eb6e7c31e51670f1, type: 3}
     isUnlocked: 0
-  - title: Grid Master
-    description: Complete 50 unique puzzles.
-    icon: {fileID: -6470460504253458178, guid: f78e2d7c0c7f040bc9999aa8d17a65b5, type: 3}
+  - id: comp_30_puzzle
+    title: Pattern Pro
+    description: Complete 30 unique puzzles.
+    icon: {fileID: -8038976213705442086, guid: 1b24c9c646acc46f9966af073c8b0533, type: 3}
     isUnlocked: 0
-  - title: Lightning Quick
+  - id: comp_40_puzzle
+    title: Logic Luminary
+    description: Complete 40 unique puzzles.
+    icon: {fileID: 5197798232337209776, guid: f078df22deb144683bac5480cc75b22c, type: 3}
+    isUnlocked: 0
+  - id: comp_50_puzzle
+    title: Master Mover
+    description: Complete 50 unique puzzles.
+    icon: {fileID: -1783808350427418317, guid: a33e3e6093ade4ca4bdb2ab6bd6eb4bc, type: 3}
+    isUnlocked: 0
+  - id: 3by3_under_15
+    title: Lightning Quick
     description: Complete any 3x3 puzzle in under 15 seconds
     icon: {fileID: -2978653956524333172, guid: 20d59f7a1c06249b4bdb7568f7a1e0b7, type: 3}
     isUnlocked: 0
-  - title: Flawless Sprint
-    description: Complete any 4x4 puzzle in under 45 seconds with optimal moves.
+  - id: 4by4_under_30
+    title: Flawless Sprint
+    description: Complete any 4x4 puzzle in under 30 seconds.
     icon: {fileID: -299690340437171572, guid: 20d59f7a1c06249b4bdb7568f7a1e0b7, type: 3}
     isUnlocked: 0
-  - title: Grand Prix Finisher
-    description: Complete a 5x5 puzzle in under 2 minutes.
+  - id: comp_5by5_under_45
+    title: Grand Prix Finisher
+    description: Complete a 5x5 puzzle in under 45seconds.
     icon: {fileID: -1290855366162983238, guid: 20d59f7a1c06249b4bdb7568f7a1e0b7, type: 3}
     isUnlocked: 0
-  - title: Speed Demon
-    description: Complete 10 puzzles in a row, each under its "Excellent" time limit.
+  - id: comp_10_puzz_under_15_times
+    title: Speed Demon
+    description: Complete 10 puzzles in under 15 seconds each
     icon: {fileID: 6621252853494989987, guid: 20d59f7a1c06249b4bdb7568f7a1e0b7, type: 3}
     isUnlocked: 0
-  - title: Efficiency Master
-    description: Complete 25 puzzles with optimal moves.
+  - id: comp_40_puzz_under_30_times
+    title: Efficiency Master
+    description: Complete 40 puzzles in under 15 seconds each
     icon: {fileID: -2248273014285675650, guid: 20d59f7a1c06249b4bdb7568f7a1e0b7, type: 3}
     isUnlocked: 0
-  - title: Rapid Fire Solver
-    description: Complete 5 different puzzles of varying sizes (3x3, 4x4, 5x5) in
-      less than 5 minutes total.
-    icon: {fileID: -4178046375966092550, guid: 7b354296f1fe84c5c903d7aa01ee2bf5, type: 3}
-    isUnlocked: 0
-  - title: Untouched Grandmaster
-    description: Complete a 5x5 puzzle in under 90 seconds without using hints.
+  - id: comp_10_under_15_moves
+    title: Untouched Grandmaster
+    description: Complete 10 puzzles in under 15 moves each
     icon: {fileID: -2696506250795634678, guid: 20d59f7a1c06249b4bdb7568f7a1e0b7, type: 3}
     isUnlocked: 0
-  - title: Gridlock Breaker
-    description: Complete a 4x4 puzzle in under 30 seconds.
+  - id: comp_4by4_under_15_moves
+    title: Gridlock Breaker
+    description: "Complete a 4\xD74 puzzle in under 15 moves"
     icon: {fileID: 4130640169021434097, guid: de9489dcce13a4bc794a302d3bbf210b, type: 3}
     isUnlocked: 0
-  - title: The Unstoppable
-    description: Complete 20 puzzles in a row without failing or resetting.
+  - id: comp_5by5_under_20_moves
+    title: The Unstoppable
+    description: "Complete a 5\xD75 puzzle in under 20 moves"
     icon: {fileID: 3465286685962602723, guid: e176294aac9514fd49693a40a82338c5, type: 3}
     isUnlocked: 0
-  - title: Minimalist Mover
-    description: Complete any 3x3 puzzle using the absolute minimum number of moves.
+  - id: comp_4by4_10_under15_moves
+    title: Minimalist Mover
+    description: Complete  4by4 ,10 puzzles in under 15 moves each
     icon: {fileID: 7028616704906629411, guid: 92b72f9ac2eb3462b9b79b9b5439552f, type: 3}
     isUnlocked: 0
-  - title: Epic Journey
+  - id: reach_5by5_stage
+    title: Rapid Fire Solver
+    description: "Reach the 5\xD75 stage"
+    icon: {fileID: -4178046375966092550, guid: 7b354296f1fe84c5c903d7aa01ee2bf5, type: 3}
+    isUnlocked: 0
+  - id: comp_58_puzzles
+    title: Epic Journey
     description: Complete all 58 current levels.
     icon: {fileID: 8288426215254106694, guid: e9326f3a2ce804172afede6be3b17008, type: 3}
     isUnlocked: 0
@@ -2564,7 +2592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1618188405825992950, guid: 02ea36da4bc5d44c6858ab5dc7f59fc8, type: 3}
+  m_Sprite: {fileID: -2407556953827017735, guid: 83729b10c70214204ae6d17e341cf349, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2600,7 +2628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1966003510
 RectTransform:
   m_ObjectHideFlags: 0

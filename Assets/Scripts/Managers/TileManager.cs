@@ -101,6 +101,8 @@ public class TileManager : MonoBehaviour
         AudioManager.Instance.PlayTileSlide();
 
 
+
+
         if (checker != null)
             checker.CheckCorrectTiles();
 
@@ -108,11 +110,15 @@ public class TileManager : MonoBehaviour
         {
             checker.OnPuzzleComplete();
             AudioManager.Instance.PlayLevelComplete();
-            
+
+
+            AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
+
         }
 
 
         LevelDetailsManager.Instance.ReduceMove();
+
 
         if (LevelDetailsManager.Instance.GetMoveCount() == 0)
         {

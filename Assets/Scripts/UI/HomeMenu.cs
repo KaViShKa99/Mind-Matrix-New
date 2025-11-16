@@ -28,6 +28,10 @@ public class HomeMenu : MonoBehaviour
     {
         StartCoroutine(PlaySoundThenLoad("HowToPlayScene"));
     }
+    public void Achievement()
+    {
+        StartCoroutine(PlaySoundThenLoad("AchievementScene"));
+    }
 
     public void QuitGame()
     {
