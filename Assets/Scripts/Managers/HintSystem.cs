@@ -46,6 +46,20 @@ public class HintSystem : MonoBehaviour
             StartCoroutine(HintCoroutine());
         }
 
+        // if (GamePixAdsManager.Instance != null)
+        // {
+        //     GamePixAdsManager.Instance.ShowRewardedAd(() =>
+        //     {
+        //         StartCoroutine(HintCoroutine());
+
+        //     });
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("⚠️ AdsManager not found — showing hint directly.");
+        //     StartCoroutine(HintCoroutine());
+        // }
+
         // StartCoroutine(HintCoroutine());
 
     }

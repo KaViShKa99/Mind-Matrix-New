@@ -27,6 +27,8 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/LevelStageScene.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/AchievementScene.unity
+  - m_enabled: 1
     m_path: Assets/Scenes/GameLevel3by3Scene.unity
   - m_enabled: 1
     m_path: Assets/Scenes/GameLevel4by4Scene.unity
@@ -177,7 +179,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 1.0.5-alpha-2'
+    - line: '|   bundleVersion: 1.0.5-alpha-3-bugfixed1'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -208,7 +210,7 @@ MonoBehaviour:
     - line: '|     iPhone: 0'
     - line: '|     tvOS: 0'
     - line: '|   overrideDefaultApplicationIdentifier: 1'
-    - line: '|   AndroidBundleVersionCode: 7'
+    - line: '|   AndroidBundleVersionCode: 11'
     - line: '|   AndroidMinSdkVersion: 23'
     - line: '|   AndroidTargetSdkVersion: 0'
     - line: '|   AndroidPreferredInstallLocation: 1'
@@ -748,7 +750,7 @@ MonoBehaviour:
     - line: '|   webGLCloseOnQuit: 0'
     - line: '|   webWasm2023: 0'
     - line: '|   scriptingDefineSymbols:'
-    - line: '|     Android: UNITY_POST_PROCESSING_STACK_V2'
+    - line: '|     Android: '
     - line: '|     EmbeddedLinux: UNITY_POST_PROCESSING_STACK_V2'
     - line: '|     GameCoreScarlett: UNITY_POST_PROCESSING_STACK_V2'
     - line: '|     GameCoreXboxOne: UNITY_POST_PROCESSING_STACK_V2'

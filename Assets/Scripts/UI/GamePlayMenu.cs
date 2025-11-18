@@ -24,14 +24,6 @@ public class GamePlayMenu : MonoBehaviour
     public void GoToHome()
     {
         StartCoroutine(PlaySoundThenLoad("HomeScreenScene"));
-        // LevelDetailsManager.Instance.StopTimer();
-        // if (pauseButtonImage != null)
-        // {
-        //     if (pauseMenuUI != null)
-        //         pauseButtonImage.sprite = playSprite;
-        //     else
-        //         pauseButtonImage.sprite = pauseSprite;
-        // }
     }
 
     public void NextLevel()
@@ -52,6 +44,8 @@ public class GamePlayMenu : MonoBehaviour
                 ? "GameLevel4by4Scene"
                 : "GameLevel5by5Scene";
 
+        // StartCoroutine(LoadLevelAfterAd(sceneToLoad));
+
         if (AdsManager.Instance != null)
         {
             AdsManager.Instance.ShowInterstitial(() =>
@@ -64,6 +58,19 @@ public class GamePlayMenu : MonoBehaviour
             Debug.LogWarning("⚠️ AdsManager not found — loading level directly.");
             StartCoroutine(LoadLevelAfterAd(sceneToLoad));
         }
+
+        // if (GamePixAdsManager.Instance != null)
+        // {
+        //     GamePixAdsManager.Instance.ShowInterstitial(() =>
+        //     {
+        //         StartCoroutine(LoadLevelAfterAd(sceneToLoad));
+        //     });
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("⚠️ AdsManager not found — loading level directly.");
+        //     StartCoroutine(LoadLevelAfterAd(sceneToLoad));
+        // }
     }
 
     private IEnumerator LoadLevelAfterAd(string sceneName)
@@ -73,7 +80,7 @@ public class GamePlayMenu : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(PlaySoundThenLoad(sceneName));
     }
 
     public void ShowHint()
@@ -83,6 +90,7 @@ public class GamePlayMenu : MonoBehaviour
 
         if (hintSystem != null) hintSystem.OnHintBtnClick();
     }
+
     public void GamePause()
     {
         LevelDetailsManager.Instance.StopTimer();

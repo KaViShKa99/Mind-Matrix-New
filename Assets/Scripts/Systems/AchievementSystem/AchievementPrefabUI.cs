@@ -39,12 +39,12 @@ public class AchievementPrefabUI : MonoBehaviour
         if (unlocked)
         {
             status.text = "Completed";
-            status.color = new Color32(74, 233, 138, 255); // #4AE98A (green)
+            status.color = new Color32(38, 116, 69, 255); // #267445ff (green)
         }
         else
         {
             status.text = "Incomplete";
-            status.color = new Color32(255, 90, 124, 255); // #F5A7C (dark red)
+            status.color = new Color32(176, 49, 49, 255); // #B03131 (dark red)
         }
     }
 

@@ -33,12 +33,14 @@ public class AchievementScrollView : MonoBehaviour
     }
 
     public void ShowPopup(AchievementData data)
-    {
+    {            
+        AudioManager.Instance.PlayButtonClick();
         popup.ShowPopup(data);
     }
 
     public void ClosedPopup()
     {
+        AudioManager.Instance.PlayButtonClick();
         popup.ClosedPopup();
     }
 

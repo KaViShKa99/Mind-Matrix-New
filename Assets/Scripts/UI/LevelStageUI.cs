@@ -63,8 +63,12 @@ public class LevelStageUI : MonoBehaviour
     
     public void RefreshLevelButtons()
     {
+
+        // PlayerPrefs.SetInt("UnlockedLevel", 50);
+        // PlayerPrefs.Save();
+
         int unlocked = LevelStageManager.Instance.UnlockedLevel;
-        Debug.Log("refresh " +unlocked);
+        Debug.Log("refresh " + unlocked);
 
         foreach (LevelButton btn in levelButtons)
         {

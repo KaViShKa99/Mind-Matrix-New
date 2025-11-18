@@ -71,11 +71,11 @@ public class AchievementManager : MonoBehaviour
             TryUnlock("comp_10_under_15_moves", under15Moves >= 10);
             
         }
-        if (size == 3 && movesUsed <= 15)
+        if (size == 4 && movesUsed <= 15)
         {
             int under15MovesSize4 = IncrementCounter("count_under_15_moves_size4");
             TryUnlock("comp_4by4_under_15_moves", under15MovesSize4 == 1);
-            TryUnlock("comp_4by4_10_under15_moves", under15MovesSize4 == 2);       
+            TryUnlock("comp_4by4_10_under15_moves", under15MovesSize4 == 10);       
         }
         // if (size == 4 && movesUsed <= 15)
         // {
