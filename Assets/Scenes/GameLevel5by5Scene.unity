@@ -1971,6 +1971,8 @@ MonoBehaviour:
   emptyTilePrefab: {fileID: 3274218850306177285, guid: b135778a9d78a4086bf29d96f32bbd15, type: 3}
   correctTilePrefab: {fileID: 7306195348855371053, guid: 9c0925d3c8a054d12825b18cc474f263, type: 3}
   checker: {fileID: 416654156}
+  popupCoinStart: {fileID: 0}
+  coinUITopRight: {fileID: 0}
   slideDuration: 0.05
   gridSize: 3
 --- !u!224 &537297847
@@ -3262,9 +3264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3daf2f0e66c547069ca3c45d32311ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelDetailsManager
-  moveText: {fileID: 1678723296}
-  timeText: {fileID: 649067988}
-  levelCount: {fileID: 937921351}
   timerRunning: 1
 --- !u!1 &729644902
 GameObject:
@@ -3611,6 +3610,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755895703}
   m_CullTransparentMesh: 1
+--- !u!1 &784909475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 784909477}
+  - component: {fileID: 784909476}
+  m_Layer: 0
+  m_Name: CoinParticleSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &784909476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784909475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a09a6aa4a1dd455b95b6e793eeb0f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 734750232017260728, guid: 7364f01cd68a64515b1841870b0ed91a, type: 3}
+  uiParent: {fileID: 1852612318}
+  explosionMinRadius: 80
+  explosionMaxRadius: 180
+  explosionMinTime: 0.3
+  explosionMaxTime: 0.6
+  flyMinDuration: 2
+  flyMaxDuration: 3
+  spinMinSpeed: 200
+  spinMaxSpeed: 600
+--- !u!4 &784909477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784909475}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.21328105, y: 0.64382356, z: 0.023097867}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &815422482
 GameObject:
   m_ObjectHideFlags: 0
@@ -7115,7 +7168,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -7542,6 +7595,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932019161}
   m_CullTransparentMesh: 1
+--- !u!1 &1947477391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1947477393}
+  - component: {fileID: 1947477392}
+  m_Layer: 0
+  m_Name: LevelState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1947477392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947477391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3daf2f0e66c547069ca3c45d32311ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerRunning: 1
+--- !u!4 &1947477393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947477391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.88813365, y: 1.6856896, z: 0.018480796}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1995880187
 GameObject:
   m_ObjectHideFlags: 0
@@ -8447,3 +8545,5 @@ SceneRoots:
   - {fileID: 1489798362}
   - {fileID: 1906937356}
   - {fileID: 709043}
+  - {fileID: 1947477393}
+  - {fileID: 784909477}

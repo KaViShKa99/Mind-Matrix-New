@@ -1,15 +1,9 @@
+using System;
 using UnityEngine;
-using TMPro;
-
 
 public class LevelDetailsManager : MonoBehaviour
 {
     public static LevelDetailsManager Instance { get; private set; }
-
-    [Header("References")]
-    public TextMeshProUGUI moveText;
-    public TextMeshProUGUI timeText;
-    public TextMeshProUGUI levelCount;
 
     [Header("Game Data")]
     private int level = 0;
@@ -18,6 +12,14 @@ public class LevelDetailsManager : MonoBehaviour
     private float startTime = 0f;
     private int gridSize = 3;
     public bool timerRunning = true;
+
+    public bool IsPaused { get; private set; }
+
+    // Events UI (or other systems) can subscribe to
+    public event Action<int> OnMoveChanged;
+    public event Action<float> OnTimeChanged;
+    public event Action<int> OnLevelChanged;
+    public event Action<int> OnGridSizeChanged;
 
     private void Awake()
     {
@@ -31,68 +33,43 @@ public class LevelDetailsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnValidate()
-    {
-        UpdateMoveText();
-        UpdateTimeText();
-        UpdateLevelText();
-    }
-
     private void Update()
     {
-        UpdateLevelText();
-        UpdateMoveText();
-
-        if (timerRunning)
+        // invoke level/move events only when values change from external callers
+        if (timerRunning && !IsPaused)
         {
-            elapsedTime -= Time.deltaTime;
-            UpdateTimeText();
+            elapsedTime += Time.deltaTime; // fixed: increment instead of subtract
+            OnTimeChanged?.Invoke(elapsedTime);
         }
     }
 
     public void ReduceMove()
     {
-        moveCount--;
-        UpdateMoveText();
+        moveCount = Mathf.Max(0, moveCount - 1);
+        OnMoveChanged?.Invoke(moveCount);
     }
 
     public void ResetLevelInfo()
     {
         moveCount = 0;
         elapsedTime = 0f;
-        UpdateMoveText();
-        UpdateTimeText();
+        startTime = 0f;
+        OnMoveChanged?.Invoke(moveCount);
+        OnTimeChanged?.Invoke(elapsedTime);
     }
 
     public void SetUIDetails(int level, int moveCount, float elapsedTime, int gridSize)
     {
         this.level = level;
         this.moveCount = moveCount;
-        startTime = elapsedTime;
+        this.startTime = elapsedTime;
         this.elapsedTime = elapsedTime;
         this.gridSize = gridSize;
-    }
 
-    private void UpdateLevelText()
-    {
-        if (levelCount != null)
-            levelCount.text = $"{level}";
-    }
-
-    private void UpdateMoveText()
-    {
-        if (moveText != null)
-            moveText.text = $"{moveCount}";
-    }
-
-    private void UpdateTimeText()
-    {
-        if (timeText != null)
-        {
-            int minutes = Mathf.FloorToInt(elapsedTime / 60);
-            int seconds = Mathf.FloorToInt(elapsedTime % 60);
-            timeText.text = $"{minutes:00}:{seconds:00}";
-        }
+        OnLevelChanged?.Invoke(this.level);
+        OnMoveChanged?.Invoke(this.moveCount);
+        OnTimeChanged?.Invoke(this.elapsedTime);
+        OnGridSizeChanged?.Invoke(this.gridSize);
     }
 
     public void StopTimer() => timerRunning = false;
@@ -100,12 +77,9 @@ public class LevelDetailsManager : MonoBehaviour
 
     public int GetMoveCount() => moveCount;
     public float GetTimerCount() => elapsedTime;
-
     public int GetLevelSize() => gridSize;
-
     public int GetLevel() => level;
     public float GetStartTime() => startTime;
-    public bool IsPaused { get; private set; }
 
     public void PauseGame()
     {
@@ -118,7 +92,6 @@ public class LevelDetailsManager : MonoBehaviour
         IsPaused = false;
         StartTimer();
     }
-
 }
 
 

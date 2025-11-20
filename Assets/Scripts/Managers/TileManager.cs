@@ -11,8 +11,8 @@ public class TileManager : MonoBehaviour
     public GameObject emptyTilePrefab;
     public GameObject correctTilePrefab; // visually 'locked' correct tile
     public PuzzleChecker checker;
-    // public LevelDetailsManager levelDetailsManager;
-
+    public RectTransform popupCoinStart;
+    public RectTransform coinUITopRight;
 
     [Header("Animation")]
     public float slideDuration = 0.15f;
@@ -98,37 +98,40 @@ public class TileManager : MonoBehaviour
 
         isAnimating = false;
 
+        // CoinFlyEffect.Instance.SpawnCoinsRandomExplosion(popupCoinStart, coinUITopRight, 15);
+
+        HandlePostMove();
+    }
+
+    // handle common post-move logic
+    private void HandlePostMove()
+    {
+        LevelDetailsManager.Instance.ReduceMove();
         AudioManager.Instance.PlayTileSlide();
-
-
-
 
         if (checker != null)
             checker.CheckCorrectTiles();
 
-        if (checker.IsPuzzleComplete())
+        if (checker != null && checker.IsPuzzleComplete())
         {
+            LevelDetailsManager.Instance.StopTimer();
             checker.OnPuzzleComplete();
             AudioManager.Instance.PlayLevelComplete();
+            
+            CoinFlyEffect.Instance.SpawnCoinsRandomExplosion(popupCoinStart, coinUITopRight, 15);
 
 
+            int currentLevel = LevelStageManager.Instance.SelectedLevel;
+            CoinManager.Instance.RewardLevel(currentLevel, 150);
             AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
-
         }
-
-
-        LevelDetailsManager.Instance.ReduceMove();
-
 
         if (LevelDetailsManager.Instance.GetMoveCount() == 0)
         {
-            checker.OnGameOver();
+            LevelDetailsManager.Instance.StopTimer();
+            if (checker != null) checker.OnGameOver();
             AudioManager.Instance.PlayGameOver();
-            
         }
-
-            
-
     }
 
     public int[] GetStateArray()
@@ -212,8 +215,6 @@ public class TileManager : MonoBehaviour
         if (moveDir != Vector2Int.zero)
         {
             StartCoroutine(SlideTile((RectTransform)tile));
-            // if (AudioManager.Instance != null)
-            //     AudioManager.Instance.PlaySFX(AudioManager.Instance.tileSlideSound);
         }
     }
 
