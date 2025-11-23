@@ -38,7 +38,7 @@ public class LevelDetailsManager : MonoBehaviour
         // invoke level/move events only when values change from external callers
         if (timerRunning && !IsPaused)
         {
-            elapsedTime += Time.deltaTime; // fixed: increment instead of subtract
+            elapsedTime -= Time.deltaTime; // fixed: increment instead of subtract
             OnTimeChanged?.Invoke(elapsedTime);
         }
     }

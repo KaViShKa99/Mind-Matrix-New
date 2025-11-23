@@ -118,7 +118,7 @@ public class TileManager : MonoBehaviour
             checker.OnPuzzleComplete();
             AudioManager.Instance.PlayLevelComplete();
             
-            CoinFlyEffect.Instance.SpawnCoinsRandomExplosion(popupCoinStart, coinUITopRight, 15);
+            StartCoroutine(DelayedCoinFlyEffect());
 
 
             int currentLevel = LevelStageManager.Instance.SelectedLevel;
@@ -132,6 +132,12 @@ public class TileManager : MonoBehaviour
             if (checker != null) checker.OnGameOver();
             AudioManager.Instance.PlayGameOver();
         }
+    }
+
+    private IEnumerator DelayedCoinFlyEffect()
+    {
+        yield return new WaitForSeconds(0.8f); // Adjust delay time as needed
+        CoinFlyEffect.Instance.SpawnCoinsRandomExplosion(popupCoinStart, coinUITopRight, 15);
     }
 
     public int[] GetStateArray()

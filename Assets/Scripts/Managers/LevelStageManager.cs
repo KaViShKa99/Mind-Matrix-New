@@ -29,8 +29,8 @@ public class LevelStageManager : MonoBehaviour
 
     private void LoadProgress()
     {
-        // PlayerPrefs.DeleteAll();
-        // PlayerPrefs.Save();
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
         // Debug.Log("All PlayerPrefs reset on Start!");
 
         UnlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);

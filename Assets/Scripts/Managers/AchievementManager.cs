@@ -58,6 +58,7 @@ public class AchievementManager : MonoBehaviour
         TryUnlock("4by4_under_30", size == 4 && time <= 30f);
         TryUnlock("comp_5by5_under_45", size == 5 && time <= 45f);
 
+
         if (time <= 15f)
         {
             int under15Sec = IncrementCounter("count_under_15_seconds");
@@ -77,12 +78,7 @@ public class AchievementManager : MonoBehaviour
             TryUnlock("comp_4by4_under_15_moves", under15MovesSize4 == 1);
             TryUnlock("comp_4by4_10_under15_moves", under15MovesSize4 == 10);       
         }
-        // if (size == 4 && movesUsed <= 15)
-        // {
-        //     int under15MovesSize4 = IncrementCounter("count_under_15_moves_size4");
-        //     TryUnlock("comp_4by4_under_15_moves", under15MovesSize4 == 1);
-        //     TryUnlock("comp_4by4_10_under15_moves", under15MovesSize4 == 10);       
-        // }
+
         if (size == 5 && movesUsed <= 20)
         {
             int under20Moves = IncrementCounter("count_under_20_moves_size5");
@@ -111,6 +107,74 @@ public class AchievementManager : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log("Achievement unlocked: " + id);
+
+        // Report to Google Play (map local ids to GPGS ids)
+#if UNITY_ANDROID
+        try
+        {
+            if (GooglePlayManager.Instance != null)
+            {
+                switch (id)
+                {
+                    case "first_solve":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_first_solve);
+                        break;
+                    case "comp_10_puzzle":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_puzzle_apprentice);
+                        break;
+                    case "comp_20_puzzle":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_grid_grasper);
+                        break;
+                    case "comp_30_puzzle":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_pattern_pro);
+                        break;
+                    case "comp_40_puzzle":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_logic_luminary);
+                        break;
+                    case "comp_50_puzzle":      
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_master_mover);
+                        break;
+                    case "3by3_under_15":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_lightning_quick);
+                        break;
+                    case "4by4_under_30":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_flawless_sprint);
+                        break;
+                    case "comp_5by5_under_45":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_grand_prix_finisher);
+                        break;
+                    case "comp_10_puzz_under_15_times":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_speed_demon);
+                        break;
+                    case "comp_40_puzz_under_15_times":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_efficiency_master);
+                        break;
+                    case "comp_10_under_15_moves":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_untouched_grandmaster);
+                        break;
+                    case "comp_4by4_under_15_moves":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_gridlock_breaker);
+                        break;
+                    case "comp_4by4_10_under15_moves":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_the_unstoppable);
+                        break;
+                    case "comp_5by5_under_20_moves":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_minimalist_mover);
+                        break;
+                    case "reach_5by5_stage":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_rapid_fire_solver);
+                        break;
+                    case "comp_58_puzzles":
+                        GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_epic_journey);
+                        break;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Failed to report achievement to Google Play: " + e);
+        }
+#endif
 
         OnAchievementUnlocked?.Invoke(id);
     }

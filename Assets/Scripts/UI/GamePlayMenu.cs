@@ -15,6 +15,7 @@ public class GamePlayMenu : MonoBehaviour
     public Image pauseButtonImage;  
     public PopupBoxUI pauseMenuUI;
     public PopupBoxUI rertyLoadingUI;
+    public PopupBoxUI gameOverUI;
     private int nextLevel;
     private int currentLevel;
     public HintSystem hintSystem;    // public LevelDetailsManager levelDetailsManager;
@@ -35,6 +36,8 @@ public class GamePlayMenu : MonoBehaviour
 
     public void Retry()
     {
+        LevelDetailsManager.Instance.StopTimer();
+        
         currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
         PlayerPrefs.SetInt("SelectedLevel", currentLevel);
 
@@ -75,12 +78,17 @@ public class GamePlayMenu : MonoBehaviour
 
     private IEnumerator LoadLevelAfterAd(string sceneName)
     {
-        if (rertyLoadingUI != null)
-            rertyLoadingUI.ShowPopup();
+        if (gameOverUI != null && gameOverUI.gameObject.activeSelf) gameOverUI.ClosedPopup();
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
+
+        rertyLoadingUI?.ShowPopup();
+
+        yield return new WaitForSeconds(1.2f);
 
         StartCoroutine(PlaySoundThenLoad(sceneName));
+
+
     }
 
     public void ShowHint()

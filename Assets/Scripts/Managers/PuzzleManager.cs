@@ -25,6 +25,8 @@ public class PuzzleManager : MonoBehaviour
         {
             gameOverTriggered = true;
 
+            LevelDetailsManager.Instance.StopTimer();
+
             checker.OnGameOver();
             if (AudioManager.Instance != null)
                 AudioManager.Instance.PlayGameOver();
@@ -34,6 +36,7 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
+        LevelDetailsManager.Instance.StartTimer();
         // AdsManager.Instance.LoadBanner();
 
         currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
@@ -107,7 +110,7 @@ public class PuzzleManager : MonoBehaviour
 
             switch (level)
             {
-                case 13: shuffleMoves = 2; moveCount = 20; elapsedTime = 60; break;
+                case 13: shuffleMoves = 2; moveCount = 20; elapsedTime = 5; break;
                 case 14: shuffleMoves = 4; moveCount = 20; elapsedTime = 60; break;
                 case 15: shuffleMoves = 6; moveCount = 22; elapsedTime = 60; break;
                 case 16: shuffleMoves = 8; moveCount = 24; elapsedTime = 60; break;
@@ -134,7 +137,7 @@ public class PuzzleManager : MonoBehaviour
 
             switch (level)
             {
-                case 29: shuffleMoves = 34; moveCount = 48; elapsedTime = 95; break;
+                case 29: shuffleMoves = 34; moveCount = 48; elapsedTime = 5; break;
                 case 30: shuffleMoves = 36; moveCount = 50; elapsedTime = 95; break;
                 case 31: shuffleMoves = 38; moveCount = 52; elapsedTime = 100; break;
                 case 32: shuffleMoves = 40; moveCount = 54; elapsedTime = 105; break;
