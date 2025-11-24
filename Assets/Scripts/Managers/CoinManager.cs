@@ -18,7 +18,15 @@ public class CoinManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            if (GooglePlayManager.Instance != null)
+            {
+                GooglePlayManager.Instance.OnCloudDataLoaded += OnCloudDataLoaded;
+            }
+
             LoadData();
+            OnCoinsChanged?.Invoke(coins);
+
         }
         else
         {
@@ -119,18 +127,32 @@ public class CoinManager : MonoBehaviour
 
     private void SaveData()
     {
+        GooglePlayManager.Instance.playerData.coins = coins;
+        GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+
         PlayerPrefs.SetInt("Coins", coins);
-        PlayerPrefs.SetInt("Gems", gems);
+        // PlayerPrefs.SetInt("Gems", gems);
         PlayerPrefs.Save();
     }
 
     private void LoadData()
     {
         coins = PlayerPrefs.GetInt("Coins", 0);
-        gems = PlayerPrefs.GetInt("Gems", 0);
+        // gems = PlayerPrefs.GetInt("Gems", 0);
 
         // PlayerPrefs.DeleteKey("Coins");
         // PlayerPrefs.DeleteKey("Gems");
+    }
+
+    private void OnCloudDataLoaded(PlayerData data)
+    {
+        coins = data.coins;
+        // Optionally update PlayerPrefs
+        PlayerPrefs.SetInt("Coins", coins);
+
+        OnCoinsChanged?.Invoke(coins);
+
+        Debug.Log("CoinManager updated coins from cloud: " + coins);
     }
 
 

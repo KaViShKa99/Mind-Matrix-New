@@ -23,18 +23,38 @@ public class LevelStageManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        // Subscribe safely to cloud event
+        if (GooglePlayManager.Instance != null)
+        {
+            GooglePlayManager.Instance.OnCloudDataLoaded += OnCloudDataLoaded;
+
+        }
+
         LoadProgress();
         CheckForAppUpdate();
     }
 
     private void LoadProgress()
     {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
+        // PlayerPrefs.DeleteAll();
+        // PlayerPrefs.Save();
         // Debug.Log("All PlayerPrefs reset on Start!");
 
         UnlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
         SelectedLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
+    }
+
+    private void OnCloudDataLoaded(PlayerData data)
+    {
+        UnlockedLevel = data.unlockedLevel;
+        SelectedLevel = data.currentLevel;
+
+        // Optionally update PlayerPrefs
+        PlayerPrefs.SetInt("SelectedLevel", SelectedLevel);
+        PlayerPrefs.SetInt("UnlockedLevel", UnlockedLevel);
+        PlayerPrefs.Save();
+        
+        Debug.Log("LevelStageManager updated levels from cloud: SelectedLevel=" + SelectedLevel + ", UnlockedLevel=" + UnlockedLevel);
     }
 
     public void UnlockNextLevel()
@@ -50,6 +70,14 @@ public class LevelStageManager : MonoBehaviour
         SelectedLevel++;
         PlayerPrefs.SetInt("SelectedLevel", SelectedLevel);
         PlayerPrefs.Save();
+
+        // Update cloud save
+        if (GooglePlayManager.Instance != null && GooglePlayManager.Instance.playerData != null)
+        {
+            GooglePlayManager.Instance.playerData.currentLevel = SelectedLevel;
+            GooglePlayManager.Instance.playerData.unlockedLevel = UnlockedLevel;
+            GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+        }
 
         Debug.Log($"Current Level: {SelectedLevel - 1} -> Next: {SelectedLevel}");
         Debug.Log($"Unlocked Level: {UnlockedLevel}");

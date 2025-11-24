@@ -118,20 +118,33 @@ public class TileManager : MonoBehaviour
             checker.OnPuzzleComplete();
             AudioManager.Instance.PlayLevelComplete();
             
-            StartCoroutine(DelayedCoinFlyEffect());
 
 
             int currentLevel = LevelStageManager.Instance.SelectedLevel;
+
+            if(CoinManager.Instance.HasLevelRewarded(currentLevel) == false)
+            {
+                 StartCoroutine(DelayedCoinFlyEffect());
+            }
+           
             CoinManager.Instance.RewardLevel(currentLevel, 150);
             AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
         }
-
-        if (LevelDetailsManager.Instance.GetMoveCount() == 0)
+        if(checker.IsPuzzleComplete() == false &&
+            LevelDetailsManager.Instance.GetMoveCount() <= 0)
         {
             LevelDetailsManager.Instance.StopTimer();
             if (checker != null) checker.OnGameOver();
-            AudioManager.Instance.PlayGameOver();
+            AudioManager.Instance.PlayGameOver();        
         }
+
+
+        // if (LevelDetailsManager.Instance.GetMoveCount() == 0)
+        // {
+        //     LevelDetailsManager.Instance.StopTimer();
+        //     if (checker != null) checker.OnGameOver();
+        //     AudioManager.Instance.PlayGameOver();
+        // }
     }
 
     private IEnumerator DelayedCoinFlyEffect()

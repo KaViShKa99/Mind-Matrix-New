@@ -1,20 +1,25 @@
-using System.Collections.Generic;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class PlayerData
 {
-    public int coins = 0;
-    public List<string> achievements = new List<string>();
+    public int coins;
+    public int currentLevel;
+    public int unlockedLevel;
 
-    public static PlayerData Current;
+    public PlayerData() {}   // IMPORTANT for JsonUtility
 
-    public static void Load()
+    // Constructor
+    public PlayerData(int coins = 0, int currentLevel = 1, int unlockedLevel = 1)
     {
-        Current = CrazyGamesSaveSystem.Load();
+        this.coins = coins;
+        this.currentLevel = currentLevel;
+        this.unlockedLevel = unlockedLevel;
     }
 
-    public static void Save(PlayerData data)
+    public override string ToString()
     {
-        CrazyGamesSaveSystem.Save(data);
+        return $"coins: {coins}, currentLevel: {currentLevel}, unlockedLevel: {unlockedLevel}";
     }
+
 }
