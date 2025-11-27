@@ -209,8 +209,8 @@ public class AchievementManager : MonoBehaviour
 
         foreach (string id in ids)
         {
-            Debug.Log("load achievement: " + id);
-            Debug.Log("unlocked achievement: " + (PlayerPrefs.GetInt(id, 0) == 1));
+            // Debug.Log("load achievement: " + id);
+            // Debug.Log("unlocked achievement: " + (PlayerPrefs.GetInt(id, 0) == 1));
             achievements[id] = PlayerPrefs.GetInt(id, 0) == 1;
         }
     }

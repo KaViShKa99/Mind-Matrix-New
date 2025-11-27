@@ -16,6 +16,7 @@ public class GamePlayMenu : MonoBehaviour
     public PopupBoxUI pauseMenuUI;
     public PopupBoxUI rertyLoadingUI;
     public PopupBoxUI gameOverUI;
+    public PopupBoxUI gameQuitUI;
     private int nextLevel;
     private int currentLevel;
     public HintSystem hintSystem;    // public LevelDetailsManager levelDetailsManager;
@@ -24,12 +25,14 @@ public class GamePlayMenu : MonoBehaviour
 
     public void GoToHome()
     {
+        // LivesManager.Instance.ConsumeLife();
+
         StartCoroutine(PlaySoundThenLoad("HomeScreenScene"));
     }
 
     public void NextLevel()
     {
-        LevelStageManager.Instance.UnlockNextLevel();
+        // LevelStageManager.Instance.UnlockNextLevel();
         string sceneToLoad = LevelStageManager.Instance.GetSceneName(LevelStageManager.Instance.SelectedLevel);
         StartCoroutine(PlaySoundThenLoad(sceneToLoad));
     }
@@ -99,6 +102,21 @@ public class GamePlayMenu : MonoBehaviour
         if (hintSystem != null) hintSystem.OnHintBtnClick();
     }
 
+    public void GameQuitUI()
+    {
+        LevelDetailsManager.Instance.StopTimer();
+        AudioManager.Instance.PlayButtonClick();
+
+        if (gameQuitUI != null) gameQuitUI.ShowPopup();
+    }
+
+    public void ClosedGameQuitUI()
+    {
+        LevelDetailsManager.Instance.StartTimer();
+        AudioManager.Instance.PlayButtonClick();
+
+        if (gameQuitUI != null) gameQuitUI.ClosedPopup();
+    }
     public void GamePause()
     {
         LevelDetailsManager.Instance.StopTimer();

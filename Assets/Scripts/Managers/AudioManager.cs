@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
 
         if (!musicSource.gameObject.activeInHierarchy)
         {
-            Debug.Log("🎵 MusicSource was disabled — enabling now...");
+            // Debug.Log("🎵 MusicSource was disabled — enabling now...");
             musicSource.gameObject.SetActive(true);
         }
 
@@ -61,7 +61,7 @@ public class AudioManager : MonoBehaviour
             musicSource.loop = true;
             musicSource.volume = 0.5f;
             musicSource.Play();
-            Debug.Log("🎶 Background music started");
+            // Debug.Log("🎶 Background music started");
         }
     }
 
@@ -128,7 +128,7 @@ public class AudioManager : MonoBehaviour
         if (!musicSource.isPlaying)
         {
             PlayBackgroundMusic();
-            Debug.Log($"🎵 Restarted music after scene load: {scene.name}");
+            // Debug.Log($"🎵 Restarted music after scene load: {scene.name}");
         }
     }
 

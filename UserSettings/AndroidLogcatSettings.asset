@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "29281JEGR02214",
         "name": "com.krhatch.mindmatrix",
-        "processId": 21922,
+        "processId": 22679,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,163 +11,61 @@
         {
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 5718,
+            "processId": 22984,
             "exited": true
         },
         {
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 5884,
+            "processId": 25235,
             "exited": true
         },
         {
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 13331,
+            "processId": 6896,
             "exited": true
         },
         {
             "deviceId": "29281JEGR02214",
+            "name": "com.whatsapp",
+            "processId": 7103,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 14451,
+            "processId": 12992,
             "exited": true
         },
         {
             "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 22604,
+            "name": "com.google.android.apps.nexuslauncher",
+            "processId": 2367,
             "exited": false
         },
         {
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 25527,
+            "processId": 16220,
             "exited": false
         },
         {
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 20456,
+            "processId": 20795,
             "exited": false
         },
         {
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 23983,
+            "processId": 5241,
             "exited": false
         },
         {
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
-            "processId": 3119,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 5887,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 8445,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 11289,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 14685,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 16289,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 19088,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 20241,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 23382,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 24730,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 27003,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 30354,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 32676,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 6702,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 8293,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 9967,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 14738,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 16816,
-            "exited": false
-        },
-        {
-            "deviceId": "29281JEGR02214",
-            "name": "com.krhatch.mindmatrix",
-            "processId": 21922,
+            "processId": 22679,
             "exited": false
         }
     ],

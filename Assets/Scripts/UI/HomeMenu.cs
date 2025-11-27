@@ -30,7 +30,8 @@ public class HomeMenu : MonoBehaviour
     }
     public void Achievement()
     {
-        StartCoroutine(PlaySoundThenLoad("AchievementScene"));
+        // StartCoroutine(PlaySoundThenLoad("AchievementScene"));
+        GooglePlayManager.Instance.ShowAchievementsUI();
     }
 
     public void QuitGame()

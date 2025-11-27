@@ -98,8 +98,8 @@ MonoBehaviour:
     - line: '|   iosUseCustomAppBackgroundBehavior: 0'
     - line: '|   allowedAutorotateToPortrait: 1'
     - line: '|   allowedAutorotateToPortraitUpsideDown: 1'
-    - line: '|   allowedAutorotateToLandscapeRight: 1'
-    - line: '|   allowedAutorotateToLandscapeLeft: 1'
+    - line: '|   allowedAutorotateToLandscapeRight: 0'
+    - line: '|   allowedAutorotateToLandscapeLeft: 0'
     - line: '|   useOSAutorotation: 1'
     - line: '|   use32BitDisplayBuffer: 1'
     - line: '|   preserveFramebufferAlpha: 0'
@@ -179,7 +179,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 1.0.5-alpha-4-bf2'
+    - line: '|   bundleVersion: 1.0.5-alpha-5-v2'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -210,7 +210,7 @@ MonoBehaviour:
     - line: '|     iPhone: 0'
     - line: '|     tvOS: 0'
     - line: '|   overrideDefaultApplicationIdentifier: 1'
-    - line: '|   AndroidBundleVersionCode: 15'
+    - line: '|   AndroidBundleVersionCode: 20'
     - line: '|   AndroidMinSdkVersion: 23'
     - line: '|   AndroidTargetSdkVersion: 0'
     - line: '|   AndroidPreferredInstallLocation: 1'
@@ -905,7 +905,7 @@ MonoBehaviour:
         m_ExportAsGoogleAndroidProject: 0
         m_DebugSymbolLevel: 1
         m_DebugSymbolFormat: 5
-        m_CurrentDeploymentTargetId: __builtin__target_default
+        m_CurrentDeploymentTargetId: 29281JEGR02214
         m_BuildType: 2
         m_BuildAppBundle: 1
         m_IPAddressToConnect: 

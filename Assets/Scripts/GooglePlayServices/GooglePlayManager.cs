@@ -75,7 +75,6 @@ public class GooglePlayManager : MonoBehaviour
 {
     public static GooglePlayManager Instance;
     public PlayerData playerData;
-
     public event Action<PlayerData> OnCloudDataLoaded;
 
 
@@ -99,7 +98,6 @@ public class GooglePlayManager : MonoBehaviour
     {
     
         PlayGamesPlatform.Activate();
-
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
 
     }
@@ -116,6 +114,11 @@ public class GooglePlayManager : MonoBehaviour
                     PlayerPrefs.SetInt("Coins", playerData.coins);
                     PlayerPrefs.SetInt("UnlockedLevel", playerData.unlockedLevel);
                     PlayerPrefs.SetInt("SelectedLevel", playerData.currentLevel);
+
+                    // PlayerPrefs.SetInt("Lives", playerData.lives);
+                    // PlayerPrefs.SetString("LastLifeUnix", playerData.lastLifeUnix.ToString());
+
+
                     PlayerPrefs.Save();
                     Debug.Log("Loaded player data from cloud "+playerData);
                     OnCloudDataLoaded?.Invoke(playerData);
@@ -125,6 +128,11 @@ public class GooglePlayManager : MonoBehaviour
                     playerData.coins = PlayerPrefs.GetInt("Coins", 0);
                     playerData.currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
                     playerData.unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+
+                    // playerData.lives = PlayerPrefs.GetInt("Lives", 5);
+                    // playerData.lastLifeUnix = PlayerPrefs.HasKey("LastLifeUnix") ? long.Parse(PlayerPrefs.GetString("LastLifeUnix")) : 0;
+
+
                     Debug.Log("No cloud save found, using default player data" +PlayerPrefs.GetInt("Coins", 0));
                     SaveGame(playerData);
                     OnCloudDataLoaded?.Invoke(playerData);
@@ -158,10 +166,19 @@ public class GooglePlayManager : MonoBehaviour
         });
     }
 
+
     public void ShowAchievementsUI()
     {
+        if (!Social.localUser.authenticated)
+        {
+            Debug.Log("Not authenticated, retrying login...");
+            PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+            return;
+        }
+
         PlayGamesPlatform.Instance.ShowAchievementsUI();
     }
+
 
     // ============================
     //     CLOUD SAVE METHODS
@@ -169,12 +186,27 @@ public class GooglePlayManager : MonoBehaviour
 
     public void SaveGame(PlayerData data)
     {
+
+        if (PlayGamesPlatform.Instance == null)
+        {
+            Debug.LogWarning("PlayGamesPlatform not initialized!");
+            return;
+        }
+
+        ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+
+        if (savedGameClient == null)
+        {
+            Debug.LogWarning("SavedGameClient not ready yet!");
+            return;
+        }
+
         string json = JsonUtility.ToJson(data);
         Debug.Log("JSON saving: " + json);
 
         byte[] savedData = Encoding.UTF8.GetBytes(json);
 
-        ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+        // ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 
         savedGameClient.OpenWithAutomaticConflictResolution(
             "player_data",
@@ -243,31 +275,6 @@ public class GooglePlayManager : MonoBehaviour
     // ============================
     //     DELETE CLOUD SAVE (FOR TESTING)
     // ============================
-
-    // public void DeleteCloudSave()
-    // {
-    //     PlayerPrefs.DeleteAll();
-    //     PlayerPrefs.Save();
-
-    //     ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-
-    //     savedGameClient.OpenWithAutomaticConflictResolution(
-    //         "player_data",
-    //         DataSource.ReadCacheOrNetwork,
-    //         ConflictResolutionStrategy.UseLongestPlaytime,
-    //         (status, game) =>
-    //         {
-    //             if (status == SavedGameRequestStatus.Success)
-    //             {
-    //                 savedGameClient.Delete(game);
-    //                 Debug.Log("Cloud save deleted!");
-    //             }
-    //             else
-    //             {
-    //                 Debug.LogError("Failed to open save for deletion: " + status);
-    //             }
-    //         });
-    // }
 
     public void DeleteCloudSave()
     {

@@ -118,6 +118,7 @@ public class TileManager : MonoBehaviour
             checker.OnPuzzleComplete();
             AudioManager.Instance.PlayLevelComplete();
             
+            LevelStageManager.Instance.UnlockNextLevel();
 
 
             int currentLevel = LevelStageManager.Instance.SelectedLevel;
