@@ -5,8 +5,8 @@ public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance;
 
-    private int coins;
-    private int gems;
+    public int coins;
+    public int gems;
 
     public event Action<int> OnCoinsChanged;
     public event Action<int> OnGemsChanged;

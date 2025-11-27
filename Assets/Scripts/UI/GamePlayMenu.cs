@@ -17,6 +17,9 @@ public class GamePlayMenu : MonoBehaviour
     public PopupBoxUI rertyLoadingUI;
     public PopupBoxUI gameOverUI;
     public PopupBoxUI gameQuitUI;
+    public PopupBoxUI hintShowPopup;
+    public PopupBoxUI coinsNotEnoughPopup;
+
     private int nextLevel;
     private int currentLevel;
     public HintSystem hintSystem;    // public LevelDetailsManager levelDetailsManager;
@@ -65,18 +68,6 @@ public class GamePlayMenu : MonoBehaviour
             StartCoroutine(LoadLevelAfterAd(sceneToLoad));
         }
 
-        // if (GamePixAdsManager.Instance != null)
-        // {
-        //     GamePixAdsManager.Instance.ShowInterstitial(() =>
-        //     {
-        //         StartCoroutine(LoadLevelAfterAd(sceneToLoad));
-        //     });
-        // }
-        // else
-        // {
-        //     Debug.LogWarning("⚠️ AdsManager not found — loading level directly.");
-        //     StartCoroutine(LoadLevelAfterAd(sceneToLoad));
-        // }
     }
 
     private IEnumerator LoadLevelAfterAd(string sceneName)
@@ -93,15 +84,8 @@ public class GamePlayMenu : MonoBehaviour
 
 
     }
-
-    public void ShowHint()
-    {
-        LevelDetailsManager.Instance.StopTimer();
-        AudioManager.Instance.PlayButtonClick();
-
-        if (hintSystem != null) hintSystem.OnHintBtnClick();
-    }
-
+    
+ 
     public void GameQuitUI()
     {
         LevelDetailsManager.Instance.StopTimer();
@@ -162,25 +146,73 @@ public class GamePlayMenu : MonoBehaviour
 
         if (pauseMenuUI != null) pauseMenuUI.ClosedPopup();
     }
+    /// <summary>
+    /// ///////////////////////////// Hint Popup ////////////////////////////
+    /// </summary>
+    public void ShowHintPopup()
+    {
+        LevelDetailsManager.Instance.StopTimer();
+        AudioManager.Instance.PlayButtonClick();
 
-    public void AdWatchBtn()
+        if (hintShowPopup != null) hintShowPopup.ShowPopup();
+    }
+
+    public void ClosedHintPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (hintShowPopup != null) hintShowPopup.ClosedPopup();
+        StartCoroutine(StartTimerAfterHint());
+
+    }
+    public void AdWatchBtnInHintPopup()
     {
         AudioManager.Instance.PlayButtonClick();
         if (hintSystem != null)
         {
-            hintSystem.ClosedAdWatchPopup();
-            hintSystem.ShowHintSteps();
+            ClosedHintPopup();         
+            hintSystem.ShowHintsAfterAd();
             StartCoroutine(StartTimerAfterHint());
+        }
+    }
+
+    public void CoinSpentBtnInHintPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (CoinManager.Instance.SpendCoins(150))
+        {
+            GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;
+            GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+            ClosedHintPopup();         
+            hintSystem.ShowHintsAfterCoinSpent();
+            StartCoroutine(StartTimerAfterHint());
+        }else
+        {
+            ClosedHintPopup();         
+            if (coinsNotEnoughPopup != null) coinsNotEnoughPopup.ShowPopup();
         }
 
     }
-    public void ClosedAdWatchPopup()
+
+    public void AdWatchBtnInCoinsNotEnoughPopup()
     {
         AudioManager.Instance.PlayButtonClick();
-        if (hintSystem != null) hintSystem.ClosedAdWatchPopup();
-        StartCoroutine(StartTimerAfterHint());
+        if (hintSystem != null)
+        {
+            ClosedCoinsNotEnoughPopup();         
+            hintSystem.ShowHintsAfterAd();
+            StartCoroutine(StartTimerAfterHint());
+        }
+
 
     }
+
+    public void ClosedCoinsNotEnoughPopup()
+    {
+        if (coinsNotEnoughPopup != null) coinsNotEnoughPopup.ClosedPopup();
+
+    }
+
+
 
     private IEnumerator StartTimerAfterHint()
     {

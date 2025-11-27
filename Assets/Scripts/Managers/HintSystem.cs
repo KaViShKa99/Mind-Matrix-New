@@ -10,6 +10,7 @@ public class HintSystem : MonoBehaviour
     public int maxHintSteps = 3;
 
     public PopupBoxUI adWatchPopup;
+    // public PopupBoxUI coinsNotEnoughPopup;
 
     [HideInInspector] public int gridSize = 3;
 
@@ -19,18 +20,29 @@ public class HintSystem : MonoBehaviour
         this.gridSize = gridSize;
     }
 
-    public void OnHintBtnClick()
+    // public void OnHintBtnClick()
+    // {
+    //     if (adWatchPopup != null) adWatchPopup.ShowPopup();
+
+    // }
+    // public void ClosedAdWatchPopup()
+    // {
+    //     if (adWatchPopup != null) adWatchPopup.ClosedPopup();
+
+    // }
+
+    public void ShowHintsAfterCoinSpent()
     {
-        if (adWatchPopup != null) adWatchPopup.ShowPopup();
+        StartCoroutine(HintCoroutine());
 
     }
-    public void ClosedAdWatchPopup()
-    {
-        if (adWatchPopup != null) adWatchPopup.ClosedPopup();
+    // public void ClosedCoinsNotEnoughPopup()
+    // {
+    //     if (coinsNotEnoughPopup != null) coinsNotEnoughPopup.ClosedPopup();
 
-    }
+    // }
 
-    public void ShowHintSteps()
+    public void ShowHintsAfterAd()
     {
         if (AdsManager.Instance != null)
         {
@@ -45,22 +57,6 @@ public class HintSystem : MonoBehaviour
             Debug.LogWarning("⚠️ AdsManager not found — showing hint directly.");
             StartCoroutine(HintCoroutine());
         }
-
-        // if (GamePixAdsManager.Instance != null)
-        // {
-        //     GamePixAdsManager.Instance.ShowRewardedAd(() =>
-        //     {
-        //         StartCoroutine(HintCoroutine());
-
-        //     });
-        // }
-        // else
-        // {
-        //     Debug.LogWarning("⚠️ AdsManager not found — showing hint directly.");
-        //     StartCoroutine(HintCoroutine());
-        // }
-
-        // StartCoroutine(HintCoroutine());
 
     }
 

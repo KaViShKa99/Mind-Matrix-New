@@ -128,7 +128,7 @@ public class TileManager : MonoBehaviour
                  StartCoroutine(DelayedCoinFlyEffect());
             }
            
-            CoinManager.Instance.RewardLevel(currentLevel, 150);
+            CoinManager.Instance.RewardLevel(currentLevel, 100);
             AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
         }
         if(checker.IsPuzzleComplete() == false &&

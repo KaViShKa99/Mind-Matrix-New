@@ -4,6 +4,8 @@ using System.Collections;
 
 public class HomeMenu : MonoBehaviour
 {
+
+    public PopupBoxUI coinsShopUI;
     private int currentLevel;
 
     private void Start()
@@ -32,6 +34,17 @@ public class HomeMenu : MonoBehaviour
     {
         // StartCoroutine(PlaySoundThenLoad("AchievementScene"));
         GooglePlayManager.Instance.ShowAchievementsUI();
+    }
+
+    public void ShowCoinsShop()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (coinsShopUI != null) coinsShopUI.ShowPopup();
+    }
+    public void ClosedCoinsShop()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (coinsShopUI != null) coinsShopUI.ClosedPopup();
     }
 
     public void QuitGame()
