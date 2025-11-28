@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Firebase;
+using Firebase.Analytics;
 
 public class HomeMenu : MonoBehaviour
 {
@@ -12,32 +14,39 @@ public class HomeMenu : MonoBehaviour
     {
         // Start background music when menu loads
         AudioManager.Instance.PlayBackgroundMusic();
+
     }
 
     // ---------------- BUTTON FUNCTIONS ----------------
 
     public void StartGame()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("start_game");
         StartCoroutine(PlaySoundThenLoadGame());
+
     }
 
     public void LevelStage()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("level_stage");
         StartCoroutine(PlaySoundThenLoad("LevelStageScene"));
     }
 
     public void HowToPlay()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("how_to_play");
         StartCoroutine(PlaySoundThenLoad("HowToPlayScene"));
     }
     public void Achievement()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("achievement");
         // StartCoroutine(PlaySoundThenLoad("AchievementScene"));
         GooglePlayManager.Instance.ShowAchievementsUI();
     }
 
     public void ShowCoinsShop()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("show_coins_shop");
         AudioManager.Instance.PlayButtonClick();
         if (coinsShopUI != null) coinsShopUI.ShowPopup();
     }

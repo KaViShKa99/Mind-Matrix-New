@@ -27,3 +27,11 @@ Thumbs.db
 *.pidb.meta
 *.pdb
 *.mdb
+
+# Firebase Unity plugin (Too large for GitHub)
+Assets/Firebase/
+Assets/Plugins/Firebase/
+
+*.bundle
+*.so
+*.dll

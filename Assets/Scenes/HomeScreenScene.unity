@@ -1583,6 +1583,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409052395}
   m_CullTransparentMesh: 1
+--- !u!1 &434955153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 434955155}
+  - component: {fileID: 434955154}
+  m_Layer: 0
+  m_Name: FirebaseAnalytics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &434955154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434955153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615619ac844aa4df7b456668810e59c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &434955155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434955153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &468113027
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,7 +3806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5202799751534490581, guid: a2869cdfb76a94be7ba67ac1d47634cc, type: 3}
+  m_Sprite: {fileID: 8070194667949004613, guid: c6dd50b6f002d4108a08db45d2bce417, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4981,8 +5025,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283540968
-  m_fontColor: {r: 0.9098039, g: 0.64705884, b: 0.31764707, a: 1}
+    rgba: 4282566899
+  m_fontColor: {r: 0.9529412, g: 0.78431374, b: 0.25882354, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6207,7 +6251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5202799751534490581, guid: a2869cdfb76a94be7ba67ac1d47634cc, type: 3}
+  m_Sprite: {fileID: 8070194667949004613, guid: c6dd50b6f002d4108a08db45d2bce417, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6797,7 +6841,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5202799751534490581, guid: a2869cdfb76a94be7ba67ac1d47634cc, type: 3}
+  m_Sprite: {fileID: 8070194667949004613, guid: c6dd50b6f002d4108a08db45d2bce417, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7917,7 +7961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5202799751534490581, guid: a2869cdfb76a94be7ba67ac1d47634cc, type: 3}
+  m_Sprite: {fileID: 8070194667949004613, guid: c6dd50b6f002d4108a08db45d2bce417, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8838,3 +8882,4 @@ SceneRoots:
   - {fileID: 697254463}
   - {fileID: 1339902627}
   - {fileID: 623160337}
+  - {fileID: 434955155}

@@ -70,6 +70,7 @@ public class RewardButtonsManager : MonoBehaviour
     // -------------------------------------------------------------
     public void OnReward100()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("reward_100");
         if (PlayerPrefs.GetInt(KEY_100) == 1) return;
 
         int watched = PlayerPrefs.GetInt(ADS100, 0);
@@ -91,6 +92,7 @@ public class RewardButtonsManager : MonoBehaviour
 
     public void OnReward500()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("reward_500");
         if (PlayerPrefs.GetInt(KEY_500) == 1) return;
 
         int watched = PlayerPrefs.GetInt(ADS500, 0);
@@ -112,6 +114,7 @@ public class RewardButtonsManager : MonoBehaviour
 
     public void OnReward1000()
     {
+        FirebaseInit.Instance.LogButtonClickedEvent("reward_1000");
         if (PlayerPrefs.GetInt(KEY_1000) == 1) return;
 
         int watched = PlayerPrefs.GetInt(ADS1000, 0);

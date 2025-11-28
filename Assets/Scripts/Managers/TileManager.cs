@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Firebase;
+using Firebase.Analytics;
+
 
 public class TileManager : MonoBehaviour
 {
@@ -98,8 +101,6 @@ public class TileManager : MonoBehaviour
 
         isAnimating = false;
 
-        // CoinFlyEffect.Instance.SpawnCoinsRandomExplosion(popupCoinStart, coinUITopRight, 15);
-
         HandlePostMove();
     }
 
@@ -120,7 +121,6 @@ public class TileManager : MonoBehaviour
             
             LevelStageManager.Instance.UnlockNextLevel();
 
-
             int currentLevel = LevelStageManager.Instance.SelectedLevel;
 
             if(CoinManager.Instance.HasLevelRewarded(currentLevel) == false)
@@ -130,6 +130,9 @@ public class TileManager : MonoBehaviour
            
             CoinManager.Instance.RewardLevel(currentLevel, 100);
             AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
+            
+            FirebaseInit.Instance.LogLevelCompleteEvent();
+
         }
         if(checker.IsPuzzleComplete() == false &&
             LevelDetailsManager.Instance.GetMoveCount() <= 0)
@@ -137,15 +140,10 @@ public class TileManager : MonoBehaviour
             LevelDetailsManager.Instance.StopTimer();
             if (checker != null) checker.OnGameOver();
             AudioManager.Instance.PlayGameOver();        
+
+            FirebaseInit.Instance.LogLevelFailedEvent();
+
         }
-
-
-        // if (LevelDetailsManager.Instance.GetMoveCount() == 0)
-        // {
-        //     LevelDetailsManager.Instance.StopTimer();
-        //     if (checker != null) checker.OnGameOver();
-        //     AudioManager.Instance.PlayGameOver();
-        // }
     }
 
     private IEnumerator DelayedCoinFlyEffect()

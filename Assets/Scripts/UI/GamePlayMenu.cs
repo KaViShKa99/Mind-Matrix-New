@@ -17,8 +17,10 @@ public class GamePlayMenu : MonoBehaviour
     public PopupBoxUI rertyLoadingUI;
     public PopupBoxUI gameOverUI;
     public PopupBoxUI gameQuitUI;
+    public PopupBoxUI gameRetryPopup;
     public PopupBoxUI hintShowPopup;
-    public PopupBoxUI coinsNotEnoughPopup;
+    public PopupBoxUI hintsCoinsNotEnoughPopup;
+    public PopupBoxUI retryCoinsNotEnoughPopup;
 
     private int nextLevel;
     private int currentLevel;
@@ -29,7 +31,6 @@ public class GamePlayMenu : MonoBehaviour
     public void GoToHome()
     {
         // LivesManager.Instance.ConsumeLife();
-
         StartCoroutine(PlaySoundThenLoad("HomeScreenScene"));
     }
 
@@ -57,7 +58,7 @@ public class GamePlayMenu : MonoBehaviour
 
         if (AdsManager.Instance != null)
         {
-            AdsManager.Instance.ShowInterstitial(() =>
+            AdsManager.Instance.ShowRewarded(() =>
             {
                 StartCoroutine(LoadLevelAfterAd(sceneToLoad));
             });
@@ -78,7 +79,7 @@ public class GamePlayMenu : MonoBehaviour
 
         rertyLoadingUI?.ShowPopup();
 
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(0.8f);
 
         StartCoroutine(PlaySoundThenLoad(sceneName));
 
@@ -146,6 +147,72 @@ public class GamePlayMenu : MonoBehaviour
 
         if (pauseMenuUI != null) pauseMenuUI.ClosedPopup();
     }
+ 
+    /// <summary>
+    /// ///////////////////////////// Retry Popup ////////////////////////////
+    /// </summary>
+    public void ShowGameRetryPopup()
+    {
+        LevelDetailsManager.Instance.StopTimer();
+        AudioManager.Instance.PlayButtonClick();    
+        if (gameRetryPopup != null) gameRetryPopup.ShowPopup();
+    }
+    public void ClosedGameRetryPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (gameRetryPopup != null) gameRetryPopup.ClosedPopup();
+        StartCoroutine(StartTimerAfterHint());
+    }
+    public void AdWatchBtnInGameRetryPopup()
+    {
+        LevelDetailsManager.Instance.AddAdWatch();
+        LevelDetailsManager.Instance.AddRestart();
+
+        AudioManager.Instance.PlayButtonClick();
+        ClosedGameRetryPopup();         
+        Retry();
+    }
+    public void CoinSpentBtnInGameRetryPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (CoinManager.Instance.SpendCoins(200))
+        {
+            LevelDetailsManager.Instance.AddAdWatch();
+            LevelDetailsManager.Instance.AddRestart();
+
+            GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;
+            GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+            ClosedGameRetryPopup();         
+            Retry();
+        }else
+        {
+            ClosedGameRetryPopup();         
+            if (retryCoinsNotEnoughPopup != null) retryCoinsNotEnoughPopup.ShowPopup();
+        }
+
+    }
+
+    public void AdWatchBtnInRetryCoinsNotEnoughPopup()
+    {
+        LevelDetailsManager.Instance.AddAdWatch();
+        LevelDetailsManager.Instance.AddRestart();
+
+        AudioManager.Instance.PlayButtonClick();
+        if (hintSystem != null)
+        {
+            ClosedRetryCoinsNotEnoughPopup();         
+            Retry();
+        }
+
+    }
+
+    public void ClosedRetryCoinsNotEnoughPopup()
+    {
+        if (retryCoinsNotEnoughPopup != null) retryCoinsNotEnoughPopup.ClosedPopup();
+
+    }
+
+
     /// <summary>
     /// ///////////////////////////// Hint Popup ////////////////////////////
     /// </summary>
@@ -166,6 +233,10 @@ public class GamePlayMenu : MonoBehaviour
     }
     public void AdWatchBtnInHintPopup()
     {
+        LevelDetailsManager.Instance.AddAdWatch();
+        LevelDetailsManager.Instance.AddHint();
+
+
         AudioManager.Instance.PlayButtonClick();
         if (hintSystem != null)
         {
@@ -180,6 +251,9 @@ public class GamePlayMenu : MonoBehaviour
         AudioManager.Instance.PlayButtonClick();
         if (CoinManager.Instance.SpendCoins(150))
         {
+            LevelDetailsManager.Instance.AddAdWatch();
+            LevelDetailsManager.Instance.AddHint();
+
             GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;
             GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
             ClosedHintPopup();         
@@ -188,17 +262,20 @@ public class GamePlayMenu : MonoBehaviour
         }else
         {
             ClosedHintPopup();         
-            if (coinsNotEnoughPopup != null) coinsNotEnoughPopup.ShowPopup();
+            if (hintsCoinsNotEnoughPopup != null) hintsCoinsNotEnoughPopup.ShowPopup();
         }
 
     }
 
-    public void AdWatchBtnInCoinsNotEnoughPopup()
+    public void AdWatchBtnInHintsCoinsNotEnoughPopup()
     {
+        LevelDetailsManager.Instance.AddAdWatch();
+        LevelDetailsManager.Instance.AddHint();
+
         AudioManager.Instance.PlayButtonClick();
         if (hintSystem != null)
         {
-            ClosedCoinsNotEnoughPopup();         
+            ClosedHintsCoinsNotEnoughPopup();         
             hintSystem.ShowHintsAfterAd();
             StartCoroutine(StartTimerAfterHint());
         }
@@ -206,9 +283,9 @@ public class GamePlayMenu : MonoBehaviour
 
     }
 
-    public void ClosedCoinsNotEnoughPopup()
+    public void ClosedHintsCoinsNotEnoughPopup()
     {
-        if (coinsNotEnoughPopup != null) coinsNotEnoughPopup.ClosedPopup();
+        if (hintsCoinsNotEnoughPopup != null) hintsCoinsNotEnoughPopup.ClosedPopup();
 
     }
 

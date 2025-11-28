@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "761655034546",
+    "project_id": "mind-matrix-bfa6d",
+    "storage_bucket": "mind-matrix-bfa6d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761655034546:android:c118e6049b8b2b8caa3fab",
+        "android_client_info": {
+          "package_name": "com.krhatch.mindmatrix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5FKiUo9LHCG45F4Ib4xlsW5zEUTHiyN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

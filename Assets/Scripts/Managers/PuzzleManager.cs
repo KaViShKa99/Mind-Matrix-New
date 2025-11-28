@@ -1,4 +1,6 @@
 using UnityEngine;
+using Firebase;
+using Firebase.Analytics;
 
 public class PuzzleManager : MonoBehaviour
 {
@@ -30,12 +32,15 @@ public class PuzzleManager : MonoBehaviour
             checker.OnGameOver();
             if (AudioManager.Instance != null)
                 AudioManager.Instance.PlayGameOver();
+
+            FirebaseInit.Instance.LogLevelCompleteEvent();
         }
 
     }
 
     void Start()
     {
+
         LevelDetailsManager.Instance.StartTimer();
         // AdsManager.Instance.LoadBanner();
 
@@ -43,6 +48,10 @@ public class PuzzleManager : MonoBehaviour
 
         // Adjust difficulty based on level
         SetLevelDifficulty(currentLevel);
+
+        FirebaseInit.Instance.LogLevelEvent();
+        FirebaseInit.Instance.LogCoinsEarnedEvent(CoinManager.Instance.GetCoins());
+
 
         // Basic sanity
         if (tileManager == null || generator == null || checker == null)
