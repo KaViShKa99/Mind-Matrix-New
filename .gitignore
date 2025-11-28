@@ -30,6 +30,7 @@ Thumbs.db
 
 # Firebase Unity plugin (Too large for GitHub)
 Assets/Firebase/
+Assets/StreamingAssets/
 Assets/Plugins/Firebase/
 
 *.bundle
