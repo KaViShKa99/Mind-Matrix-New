@@ -133,6 +133,9 @@ public class TileManager : MonoBehaviour
             
             FirebaseInit.Instance.LogLevelCompleteEvent();
 
+            LevelPlayCounter.Instance.OnLevelCompleted();
+
+
         }
         if(checker.IsPuzzleComplete() == false &&
             LevelDetailsManager.Instance.GetMoveCount() <= 0)

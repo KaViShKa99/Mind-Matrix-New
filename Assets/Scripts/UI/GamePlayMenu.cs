@@ -37,37 +37,46 @@ public class GamePlayMenu : MonoBehaviour
     public void NextLevel()
     {
         // LevelStageManager.Instance.UnlockNextLevel();
+        
+        LevelPlayCounter.Instance.OnLevelPlayed();
+
         string sceneToLoad = LevelStageManager.Instance.GetSceneName(LevelStageManager.Instance.SelectedLevel);
         StartCoroutine(PlaySoundThenLoad(sceneToLoad));
     }
 
     public void Retry()
     {
-        LevelDetailsManager.Instance.StopTimer();
-        
-        currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
-        PlayerPrefs.SetInt("SelectedLevel", currentLevel);
+        // LevelPlayCounter.Instance.skipNextStartCount = true;
 
+        // LevelPlayCounter.Instance.OnLevelPlayed();
+
+        LevelPlayCounter.Instance.OnLevelReset();
+
+        LevelDetailsManager.Instance.StopTimer();
+
+        currentLevel = LevelDetailsManager.Instance.GetLevel();
+        
+        
         string sceneToLoad = currentLevel < 13
             ? "GameLevel3by3Scene"
             : currentLevel < 29
                 ? "GameLevel4by4Scene"
                 : "GameLevel5by5Scene";
 
-        // StartCoroutine(LoadLevelAfterAd(sceneToLoad));
+        StartCoroutine(LoadLevelAfterAd(sceneToLoad));
 
-        if (AdsManager.Instance != null)
-        {
-            AdsManager.Instance.ShowRewarded(() =>
-            {
-                StartCoroutine(LoadLevelAfterAd(sceneToLoad));
-            });
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ AdsManager not found — loading level directly.");
-            StartCoroutine(LoadLevelAfterAd(sceneToLoad));
-        }
+        // if (AdsManager.Instance != null)
+        // {
+        //     AdsManager.Instance.ShowRewarded(() =>
+        //     {
+        //         StartCoroutine(LoadLevelAfterAd(sceneToLoad));
+        //     });
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("⚠️ AdsManager not found — loading level directly.");
+        //     StartCoroutine(LoadLevelAfterAd(sceneToLoad));
+        // }
 
     }
 

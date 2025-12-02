@@ -10,7 +10,6 @@ public class HintSystem : MonoBehaviour
     public int maxHintSteps = 3;
 
     public PopupBoxUI adWatchPopup;
-    // public PopupBoxUI coinsNotEnoughPopup;
 
     [HideInInspector] public int gridSize = 3;
 
@@ -20,27 +19,11 @@ public class HintSystem : MonoBehaviour
         this.gridSize = gridSize;
     }
 
-    // public void OnHintBtnClick()
-    // {
-    //     if (adWatchPopup != null) adWatchPopup.ShowPopup();
-
-    // }
-    // public void ClosedAdWatchPopup()
-    // {
-    //     if (adWatchPopup != null) adWatchPopup.ClosedPopup();
-
-    // }
-
     public void ShowHintsAfterCoinSpent()
     {
         StartCoroutine(HintCoroutine());
 
     }
-    // public void ClosedCoinsNotEnoughPopup()
-    // {
-    //     if (coinsNotEnoughPopup != null) coinsNotEnoughPopup.ClosedPopup();
-
-    // }
 
     public void ShowHintsAfterAd()
     {

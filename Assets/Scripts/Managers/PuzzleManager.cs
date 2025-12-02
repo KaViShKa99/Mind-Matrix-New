@@ -40,6 +40,12 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
+        // if (!LevelPlayCounter.Instance.skipNextStartCount)
+        // {
+        //     LevelPlayCounter.Instance.OnLevelPlayed();
+        // }
+        // LevelPlayCounter.Instance.skipNextStartCount = false;
+
 
         LevelDetailsManager.Instance.StartTimer();
         // AdsManager.Instance.LoadBanner();
@@ -86,7 +92,6 @@ public class PuzzleManager : MonoBehaviour
         }
 
     }
-
 
    
 
