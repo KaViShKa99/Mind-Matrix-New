@@ -115,6 +115,9 @@ public class GooglePlayManager : MonoBehaviour
                     PlayerPrefs.SetInt("UnlockedLevel", playerData.unlockedLevel);
                     PlayerPrefs.SetInt("SelectedLevel", playerData.currentLevel);
 
+                    PlayerPrefs.SetInt("LevelReward_" + playerData.currentLevel, 1);
+
+
                     // PlayerPrefs.SetInt("Lives", playerData.lives);
                     // PlayerPrefs.SetString("LastLifeUnix", playerData.lastLifeUnix.ToString());
 
@@ -128,6 +131,7 @@ public class GooglePlayManager : MonoBehaviour
                     playerData.coins = PlayerPrefs.GetInt("Coins", 0);
                     playerData.currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
                     playerData.unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+                    playerData.levelReward = PlayerPrefs.GetInt("LevelReward_" + playerData.currentLevel, 0);
 
                     // playerData.lives = PlayerPrefs.GetInt("Lives", 5);
                     // playerData.lastLifeUnix = PlayerPrefs.HasKey("LastLifeUnix") ? long.Parse(PlayerPrefs.GetString("LastLifeUnix")) : 0;

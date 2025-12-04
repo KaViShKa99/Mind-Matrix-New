@@ -148,6 +148,7 @@ public class CoinManager : MonoBehaviour
     private void OnCloudDataLoaded(PlayerData data)
     {
         coins = data.coins;
+        PlayerPrefs.SetInt("LevelReward_" + data.currentLevel, 1);
         // Optionally update PlayerPrefs
         PlayerPrefs.SetInt("Coins", coins);
 

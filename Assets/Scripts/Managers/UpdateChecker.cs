@@ -34,6 +34,8 @@
 //     }
 // }
 
+
+
 // using UnityEngine;
 // using UnityEngine.UI;
 // using TMPro;
@@ -51,33 +53,35 @@
 //     public Button cancelButton;
 //     public Button quitButton;
 
+//     [Header("Progress UI")]
+//     public GameObject progressSpinner; // A spinning icon or loading indicator
+
 //     private AppUpdateManager appUpdateManager;
 //     private AppUpdateInfo appUpdateInfo;
 
 //     void Start()
 //     {
-//         appUpdateManager = new AppUpdateManager();
-//         // backgroundPanel.SetActive(false);
-//         // updatePanel.SetActive(false);
-//         backgroundPanel.SetActive(true);
-//         updatePanel.SetActive(true);
-        
+//         Debug.Log("UpdateChecker START");
 
+//         backgroundPanel.SetActive(false);
+//         updatePanel.SetActive(false);
+//         progressSpinner.SetActive(false);
+
+//         appUpdateManager = new AppUpdateManager();
 //         CheckForUpdate();
 //     }
 
-//     // -----------------------------------------------------------------------
-//     // CHECK FOR UPDATE
-//     // -----------------------------------------------------------------------
 //     void CheckForUpdate()
 //     {
+//         Debug.Log("Checking for update…");
+
 //         var request = appUpdateManager.GetAppUpdateInfo();
 
 //         request.Completed += (operation) =>
 //         {
 //             if (operation.Error != AppUpdateErrorCode.NoError)
 //             {
-//                 Debug.Log("Update check failed: " + operation.Error);
+//                 Debug.LogError("Update check failed: " + operation.Error);
 //                 return;
 //             }
 
@@ -85,20 +89,23 @@
 
 //             if (appUpdateInfo.UpdateAvailability == UpdateAvailability.UpdateAvailable)
 //             {
-//                 bool forced = appUpdateInfo.UpdatePriority >= 5;
+//                 // bool forced = appUpdateInfo.UpdatePriority >= 5; // Priority >= 5 → forced update
+//                 bool forced = appUpdateInfo.UpdatePriority < 5; // Priority >= 5 → flexible update
 //                 ShowUpdatePopup(forced);
+//             }
+//             else
+//             {
+//                 Debug.Log("No update available.");
 //             }
 //         };
 //     }
 
-//     // -----------------------------------------------------------------------
-//     // SHOW POPUP
-//     // -----------------------------------------------------------------------
 //     void ShowUpdatePopup(bool forced)
 //     {
 //         updatePanel.SetActive(true);
 //         backgroundPanel.SetActive(true);
 
+//         // Configure UI based on forced or optional update
 //         if (forced)
 //         {
 //             updateTitle.text = "Update Required";
@@ -114,45 +121,47 @@
 //             quitButton.gameObject.SetActive(false);
 //         }
 
+//         // Remove previous listeners
 //         updateButton.onClick.RemoveAllListeners();
 //         cancelButton.onClick.RemoveAllListeners();
 //         quitButton.onClick.RemoveAllListeners();
 
+//         // Add new listeners
 //         if (forced)
-//             updateButton.onClick.AddListener(() => StartImmediateUpdate());
+//             updateButton.onClick.AddListener(StartImmediateUpdate);
 //         else
-//             updateButton.onClick.AddListener(() => StartFlexibleUpdate());
+//             updateButton.onClick.AddListener(StartFlexibleUpdate);
 
 //         cancelButton.onClick.AddListener(CancelUpdate);
 //         quitButton.onClick.AddListener(QuitGame);
 //     }
 
-//     // -----------------------------------------------------------------------
-//     // IMMEDIATE UPDATE
-//     // -----------------------------------------------------------------------
 //     void StartImmediateUpdate()
 //     {
+//         Debug.Log("Starting Immediate Update…");
+
 //         var request = appUpdateManager.StartUpdate(appUpdateInfo, AppUpdateOptions.ImmediateAppUpdateOptions());
 
 //         request.Completed += (operation) =>
 //         {
 //             if (operation.Error != AppUpdateErrorCode.NoError)
-//                 Debug.Log("Immediate update failed: " + operation.Error);
+//                 Debug.LogError("Immediate update failed: " + operation.Error);
+//             else
+//                 Debug.Log("Immediate update started successfully.");
 //         };
 //     }
 
-//     // -----------------------------------------------------------------------
-//     // FLEXIBLE UPDATE (NO PROGRESS SUPPORTED)
-//     // -----------------------------------------------------------------------
 //     void StartFlexibleUpdate()
 //     {
-//         // Hide update buttons and allow cancel
+//         Debug.Log("Starting Flexible Update…");
+
 //         updateButton.gameObject.SetActive(false);
-//         quitButton.gameObject.SetActive(false);
 //         cancelButton.gameObject.SetActive(true);
 
 //         updateTitle.text = "Updating...";
 //         updateDescription.text = "Downloading update…";
+
+//         progressSpinner.SetActive(true); // show spinner
 
 //         var request = appUpdateManager.StartUpdate(appUpdateInfo, AppUpdateOptions.FlexibleAppUpdateOptions());
 
@@ -160,210 +169,131 @@
 //         {
 //             if (operation.Error != AppUpdateErrorCode.NoError)
 //             {
-//                 Debug.Log("Flexible update failed: " + operation.Error);
+//                 Debug.LogError("Flexible update failed: " + operation.Error);
+//                 progressSpinner.SetActive(false);
 //                 return;
 //             }
 
-//             updateDescription.text = "Update downloaded. Installing…";
+//             Debug.Log("Flexible update download completed. Installing…");
+//             updateDescription.text = "Download completed. Installing…";
 
-//             // COMPLETE UPDATE
 //             appUpdateManager.CompleteUpdate();
+//             progressSpinner.SetActive(false);
 //         };
 //     }
 
-//     // -----------------------------------------------------------------------
-//     // CANCEL UPDATE
-//     // -----------------------------------------------------------------------
 //     void CancelUpdate()
 //     {
+//         Debug.Log("Update canceled by user");
 //         updatePanel.SetActive(false);
 //         backgroundPanel.SetActive(false);
-//         Debug.Log("Update cancelled by user.");
+//         progressSpinner.SetActive(false);
 //     }
 
-//     // -----------------------------------------------------------------------
-//     // QUIT GAME
-//     // -----------------------------------------------------------------------
 //     void QuitGame()
 //     {
-// #if UNITY_EDITOR
-//         UnityEditor.EditorApplication.isPlaying = false;
-// #else
+//         Debug.Log("Quit button pressed → Exiting game");
 //         Application.Quit();
-// #endif
 //     }
 // }
-
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-
-// #if !UNITY_EDITOR
 using Google.Play.AppUpdate;
 using Google.Play.Common;
-// #endif
 
 public class UpdateChecker : MonoBehaviour
 {
-    [Header("Main UI")]
-    public GameObject backgroundPanel;
-    public GameObject updatePanel;
-    public TMP_Text updateTitle;
-    public TMP_Text updateDescription;
-    public Button updateButton;
-    public Button cancelButton;
-    public Button quitButton;
-
-// #if !UNITY_EDITOR
     private AppUpdateManager appUpdateManager;
-    private AppUpdateInfo appUpdateInfo;
-// #endif
 
-    void Start()
+    private void Start()
     {
-        Debug.Log("UpdateChecker START");
-
-        
-        // Test Mode in Editor
-// #if UNITY_EDITOR
-//         Debug.Log("Editor Mode: Simulating update available");
-//         ShowUpdatePopup(forced: false); // simulate non-forced update
-// #else
-        appUpdateManager = new AppUpdateManager();
-
-        backgroundPanel.SetActive(false);
-        updatePanel.SetActive(false);
-
         CheckForUpdate();
-// #endif
     }
 
-// #if !UNITY_EDITOR
     void CheckForUpdate()
     {
-        Debug.Log("Checking for update…");
+        appUpdateManager = new AppUpdateManager();
 
-        var request = appUpdateManager.GetAppUpdateInfo();
-
-        request.Completed += (operation) =>
+        var appUpdateInfoOperation = appUpdateManager.GetAppUpdateInfo();
+        appUpdateInfoOperation.Completed += (operation) =>
         {
             if (operation.Error != AppUpdateErrorCode.NoError)
             {
-                Debug.LogError("Update check failed: " + operation.Error);
+                Debug.LogError("Error: " + operation.Error);
                 return;
             }
 
-            appUpdateInfo = operation.GetResult();
+            var info = operation.GetResult();
 
-            if (appUpdateInfo.UpdateAvailability == UpdateAvailability.UpdateAvailable)
+            // IMMEDIATE UPDATE (priority >= 5 recommended)
+
+            if (info.UpdateAvailability == UpdateAvailability.UpdateAvailable &&
+                info.UpdatePriority >= 5)
             {
-                bool forced = appUpdateInfo.UpdatePriority >= 5;
-                ShowUpdatePopup(forced);
+                Debug.Log("Immediate update available");
+                StartImmediateUpdate(info);
+                return;
             }
+
+            // FLEXIBLE UPDATE (normal update)
+            // if (info.UpdateAvailability == UpdateAvailability.UpdateAvailable)
+            // {
+            //     Debug.Log("Flexible update available");
+            //     StartFlexibleUpdate(info);
+            //     return;
+            // }
+
+            Debug.Log("No update available.");
         };
     }
-// #endif
 
-    void ShowUpdatePopup(bool forced)
+    void StartImmediateUpdate(AppUpdateInfo info)
     {
-        Debug.Log("Showing Update Popup. Forced = " + forced);
+        var request = appUpdateManager.StartUpdate(info, AppUpdateOptions.ImmediateAppUpdateOptions());
 
-        updatePanel.SetActive(true);
-        backgroundPanel.SetActive(true);
-
-        if (forced)
+        request.Completed += (op) =>
         {
-            updateTitle.text = "Update Required";
-            updateDescription.text = "A new version is required to continue.";
-            cancelButton.gameObject.SetActive(false);
-            quitButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            updateTitle.text = "Update Available";
-            updateDescription.text = "A newer version is available.";
-            cancelButton.gameObject.SetActive(true);
-            quitButton.gameObject.SetActive(false);
-        }
-
-        updateButton.onClick.RemoveAllListeners();
-        cancelButton.onClick.RemoveAllListeners();
-        quitButton.onClick.RemoveAllListeners();
-
-        // Add debug logs for button clicks
-        updateButton.onClick.AddListener(() => Debug.Log("Update Button CLICKED"));
-        cancelButton.onClick.AddListener(() => Debug.Log("Cancel Button CLICKED"));
-        quitButton.onClick.AddListener(() => Debug.Log("Quit Button CLICKED"));
-
-// #if UNITY_EDITOR
-        // Editor simulation actions
-        updateButton.onClick.AddListener(() => Debug.Log("Editor: Simulate Update Start"));
-// #endif
-
-// #if !UNITY_EDITOR
-        // Real actions on device
-        if (forced)
-            updateButton.onClick.AddListener(() => StartImmediateUpdate());
-        else
-            updateButton.onClick.AddListener(() => StartFlexibleUpdate());
-
-        cancelButton.onClick.AddListener(CancelUpdate);
-        quitButton.onClick.AddListener(QuitGame);
-// #endif
-    }
-
-// #if !UNITY_EDITOR
-    void StartImmediateUpdate()
-    {
-        var request = appUpdateManager.StartUpdate(appUpdateInfo, AppUpdateOptions.ImmediateAppUpdateOptions());
-        request.Completed += (operation) =>
-        {
-            if (operation.Error != AppUpdateErrorCode.NoError)
-                Debug.LogError("Immediate update failed: " + operation.Error);
+            if (op.Error != AppUpdateErrorCode.NoError)
+            {
+                Debug.LogError("Immediate update failed: " + op.Error);
+            }
             else
-                Debug.Log("Immediate update started successfully.");
+            {
+                Debug.Log("Immediate update started.");
+            }
         };
     }
 
-    void StartFlexibleUpdate()
+    void StartFlexibleUpdate(AppUpdateInfo info)
     {
-        updateButton.gameObject.SetActive(false);
-        quitButton.gameObject.SetActive(false);
-        cancelButton.gameObject.SetActive(true);
+        var request = appUpdateManager.StartUpdate(info, AppUpdateOptions.FlexibleAppUpdateOptions());
 
-        updateTitle.text = "Updating...";
-        updateDescription.text = "Downloading update…";
-
-        var request = appUpdateManager.StartUpdate(appUpdateInfo, AppUpdateOptions.FlexibleAppUpdateOptions());
-
-        request.Completed += (operation) =>
+        request.Completed += (op) =>
         {
-            if (operation.Error != AppUpdateErrorCode.NoError)
+            if (op.Error != AppUpdateErrorCode.NoError)
             {
-                Debug.LogError("Flexible update failed: " + operation.Error);
+                Debug.LogError("Flexible update failed: " + op.Error);
                 return;
             }
 
-            updateDescription.text = "Update downloaded. Installing…";
-            appUpdateManager.CompleteUpdate();
+            Debug.Log("Flexible update downloaded. Installing…");
+            CompleteFlexibleUpdate();
         };
     }
-// #endif
 
-    void CancelUpdate()
+    void CompleteFlexibleUpdate()
     {
-        Debug.Log("Update CANCELED by user");
-        updatePanel.SetActive(false);
-        backgroundPanel.SetActive(false);
-    }
+        var completeRequest = appUpdateManager.CompleteUpdate();
 
-    void QuitGame()
-    {
-        Debug.Log("QUIT button pressed → Exiting game");
-// #if UNITY_EDITOR
-        // UnityEditor.EditorApplication.isPlaying = false;
-// #else
-        Application.Quit();
-// #endif
+        completeRequest.Completed += (op) =>
+        {
+            if (op.Error != AppUpdateErrorCode.NoError)
+            {
+                Debug.LogError("Install failed: " + op.Error);
+            }
+            else
+            {
+                Debug.Log("Update installed successfully.");
+            }
+        };
     }
 }

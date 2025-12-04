@@ -217,6 +217,10 @@ public class AdsManager : MonoBehaviour
     // private readonly string interstitialAdUnitId = "ca-app-pub-4782366325141566/8262557459";
     // private readonly string rewardedAdUnitId = "ca-app-pub-4782366325141566/6100973132";
 
+    // real app id = ca-app-pub-4782366325141566~4553863840
+
+    // fake app id ca-app-pub-3940256099942544~3347511713 
+
     private  string bannerAdUnitId = "ca-app-pub-3940256099942544/6300978111";
     private  string interstitialAdUnitId = "ca-app-pub-3940256099942544/1033173712";
     private  string rewardedAdUnitId = "ca-app-pub-3940256099942544/5224354917";
@@ -269,6 +273,10 @@ public class AdsManager : MonoBehaviour
     public void LoadBanner()
     {
         bannerView?.Destroy();
+
+        // AdSize adaptiveSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
+        // bannerView = new BannerView(bannerAdUnitId, adaptiveSize, AdPosition.Bottom);
+
 
         bannerView = new BannerView(bannerAdUnitId, AdSize.Banner, AdPosition.Bottom);
         AdRequest request = new AdRequest();

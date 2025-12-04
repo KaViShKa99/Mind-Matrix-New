@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5abc2e486e97e43debd3effdacd745d7
+guid: 3c59c74b028b44e608b128ccb96f82b2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1651076797940847207
-    second: buyPopup_0
+      213: -1767437466653710188
+    second: bannerPopup_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: buyPopup_0
+      name: bannerPopup_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 8
-        width: 411
-        height: 516
+        x: 50
+        y: 27
+        width: 578
+        height: 1025
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 99da8d966623619e0800000000000000
-      internalID: -1651076797940847207
+      spriteID: 498a3650dfcc877e0800000000000000
+      internalID: -1767437466653710188
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      buyPopup_0: -1651076797940847207
+      bannerPopup_0: -1767437466653710188
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

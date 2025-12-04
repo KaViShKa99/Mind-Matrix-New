@@ -8,6 +8,7 @@ public class HomeMenu : MonoBehaviour
 {
 
     public PopupBoxUI coinsShopUI;
+    public PopupBoxUI settingsUI;
     private int currentLevel;
 
     private void Start()
@@ -54,6 +55,16 @@ public class HomeMenu : MonoBehaviour
     {
         AudioManager.Instance.PlayButtonClick();
         if (coinsShopUI != null) coinsShopUI.ClosedPopup();
+    }
+    public void ShowSettings()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (settingsUI != null) settingsUI.ShowPopup();
+    }
+    public void ClosedSettings()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (settingsUI != null) settingsUI.ClosedPopup();
     }
 
     public void QuitGame()
