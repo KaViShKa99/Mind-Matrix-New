@@ -1,9 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+
 
 public class LevelButton : MonoBehaviour
 {
+    [Header("Star UI (Optional)")]
+    public Image[] starImages;           // Assign star images (0–3)
+    public Sprite filledStar;            // Yellow star sprite
+    public Sprite emptyStar; 
+    private int pendingStars = -1; // Will store stars to animate
+  
+
     public TextMeshProUGUI levelText;
     public GameObject lockIcon; // assign lock icon in prefab
     private int levelNumber;
@@ -32,6 +41,37 @@ public class LevelButton : MonoBehaviour
         button.interactable = isUnlocked;
         if (lockIcon != null)
             lockIcon.SetActive(!isUnlocked);
+
+        AnimateStars();
+    }
+
+    private void AnimateStars()
+    {
+        pendingStars = PlayerPrefs.GetInt("Stars_Level_" + levelNumber, 0);
+
+        if (starImages == null || starImages.Length == 0)
+            return; // No stars in this popup → skip
+
+        for (int i = 0; i < starImages.Length; i++)
+        {
+            bool active = i < pendingStars;
+
+            starImages[i].sprite = active ? filledStar : emptyStar;
+            starImages[i].color = active ? Color.white : new Color(1, 1, 1, 0.25f);
+
+            starImages[i].transform.localScale = Vector3.zero;
+
+            if (active)
+            {
+                starImages[i].transform.DOScale(1f, 0.4f)
+                    .SetEase(Ease.OutBack)
+                    .SetDelay(0.15f * i);
+            }
+            else
+            {
+                starImages[i].transform.localScale = Vector3.one;
+            }
+        }
     }
 
     public void OnClick()

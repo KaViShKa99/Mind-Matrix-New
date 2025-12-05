@@ -1433,6 +1433,12 @@ MonoBehaviour:
   popupBox: {fileID: 2004563084}
   popupCanvasGroup: {fileID: 2004563090}
   popupBackground: {fileID: 1203915872}
+  starImages:
+  - {fileID: 252923697}
+  - {fileID: 743948414}
+  - {fileID: 2060666438}
+  filledStar: {fileID: -7780402714847779476, guid: 69e2cf0628f714cb6a74e5e460acdd83, type: 3}
+  emptyStar: {fileID: -7780402714847779476, guid: 69e2cf0628f714cb6a74e5e460acdd83, type: 3}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!1 &232173128
@@ -1651,7 +1657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2090,6 +2096,9 @@ MonoBehaviour:
   popupBox: {fileID: 1177903364}
   popupCanvasGroup: {fileID: 1177903370}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &319967521
@@ -3623,6 +3632,9 @@ MonoBehaviour:
   popupBox: {fileID: 1569475352}
   popupCanvasGroup: {fileID: 1569475354}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &617480934
@@ -5221,7 +5233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7177,6 +7189,9 @@ MonoBehaviour:
   popupBox: {fileID: 1408412531}
   popupCanvasGroup: {fileID: 1408412532}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1008869565
@@ -8520,6 +8535,9 @@ MonoBehaviour:
   popupBox: {fileID: 1996994978}
   popupCanvasGroup: {fileID: 1996994979}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1212394472
@@ -9262,6 +9280,9 @@ MonoBehaviour:
   popupBox: {fileID: 232173128}
   popupCanvasGroup: {fileID: 232173134}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!1 &1287153797
@@ -9296,6 +9317,9 @@ MonoBehaviour:
   popupBox: {fileID: 1453830682}
   popupCanvasGroup: {fileID: 1453830688}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1287153799
@@ -9669,6 +9693,9 @@ MonoBehaviour:
   popupBox: {fileID: 1113369692}
   popupCanvasGroup: {fileID: 1113369696}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1355104665
@@ -13713,6 +13740,9 @@ MonoBehaviour:
   popupBox: {fileID: 746145040}
   popupCanvasGroup: {fileID: 746145042}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1920841324
@@ -14575,7 +14605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -1433,6 +1433,12 @@ MonoBehaviour:
   popupBox: {fileID: 2004563084}
   popupCanvasGroup: {fileID: 2004563090}
   popupBackground: {fileID: 1203915872}
+  starImages:
+  - {fileID: 252923697}
+  - {fileID: 743948414}
+  - {fileID: 2060666438}
+  filledStar: {fileID: -7780402714847779476, guid: 69e2cf0628f714cb6a74e5e460acdd83, type: 3}
+  emptyStar: {fileID: -7780402714847779476, guid: 69e2cf0628f714cb6a74e5e460acdd83, type: 3}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!1 &232173128
@@ -1651,7 +1657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1684,7 +1690,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252923693}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 294529a5288e547c1ba51272119c5215, type: 2}
   m_CullingMode: 0
@@ -2090,6 +2096,9 @@ MonoBehaviour:
   popupBox: {fileID: 1177903364}
   popupCanvasGroup: {fileID: 1177903370}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &319967521
@@ -3623,6 +3632,9 @@ MonoBehaviour:
   popupBox: {fileID: 1569475352}
   popupCanvasGroup: {fileID: 1569475354}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &617480934
@@ -5221,7 +5233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5254,7 +5266,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743948410}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 294529a5288e547c1ba51272119c5215, type: 2}
   m_CullingMode: 0
@@ -7177,6 +7189,9 @@ MonoBehaviour:
   popupBox: {fileID: 1408412531}
   popupCanvasGroup: {fileID: 1408412532}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1008869565
@@ -7466,7 +7481,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1054022057}
-  - component: {fileID: 1054022058}
   m_Layer: 5
   m_Name: StarsPanel
   m_TagString: Untagged
@@ -7492,25 +7506,6 @@ Transform:
   - {fileID: 743948411}
   m_Father: {fileID: 2004563085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1054022058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054022056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: b3571e2a282a04b5da6e64158460389d, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 0}
-  m_SortingOrder: 0
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
 --- !u!1 &1085223210
 GameObject:
   m_ObjectHideFlags: 0
@@ -8520,6 +8515,9 @@ MonoBehaviour:
   popupBox: {fileID: 1996994978}
   popupCanvasGroup: {fileID: 1996994979}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1212394472
@@ -9262,6 +9260,9 @@ MonoBehaviour:
   popupBox: {fileID: 232173128}
   popupCanvasGroup: {fileID: 232173134}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!1 &1287153797
@@ -9296,6 +9297,9 @@ MonoBehaviour:
   popupBox: {fileID: 1453830682}
   popupCanvasGroup: {fileID: 1453830688}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1287153799
@@ -9669,6 +9673,9 @@ MonoBehaviour:
   popupBox: {fileID: 1113369692}
   popupCanvasGroup: {fileID: 1113369696}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1355104665
@@ -13713,6 +13720,9 @@ MonoBehaviour:
   popupBox: {fileID: 746145040}
   popupCanvasGroup: {fileID: 746145042}
   popupBackground: {fileID: 1203915872}
+  starImages: []
+  filledStar: {fileID: 0}
+  emptyStar: {fileID: 0}
   popupOpenTime: 0.55
   popupCloseTime: 0.45
 --- !u!224 &1920841324
@@ -14575,7 +14585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14608,7 +14618,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060666434}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 294529a5288e547c1ba51272119c5215, type: 2}
   m_CullingMode: 0

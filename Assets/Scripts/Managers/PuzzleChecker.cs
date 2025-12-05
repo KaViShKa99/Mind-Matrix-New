@@ -67,7 +67,9 @@ public class PuzzleChecker : MonoBehaviour
     public void OnPuzzleComplete()
     {
         Debug.Log("PuzzleManager: Puzzle complete");
-        if (levelCompleteUI != null) levelCompleteUI.ShowPopup();
+        int levelIndex = LevelStageManager.Instance.SelectedLevel;
+        if (levelCompleteUI != null) levelCompleteUI.ShowPopupForLevel(levelIndex);
+        // if (levelCompleteUI != null) levelCompleteUI.ShowPopup();
 
     }
     public void OnGameOver()

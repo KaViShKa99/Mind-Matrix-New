@@ -116,6 +116,10 @@ public class TileManager : MonoBehaviour
         if (checker != null && checker.IsPuzzleComplete())
         {
             LevelDetailsManager.Instance.StopTimer();
+
+            StarRatingManager.Instance.RewardStars();
+
+
             checker.OnPuzzleComplete();
             AudioManager.Instance.PlayLevelComplete();
             
@@ -131,8 +135,8 @@ public class TileManager : MonoBehaviour
             CoinManager.Instance.RewardLevel(currentLevel, 100);
             AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
             
+           
             FirebaseInit.Instance.LogLevelCompleteEvent();
-
             LevelPlayCounter.Instance.OnLevelCompleted();
 
 
@@ -140,7 +144,15 @@ public class TileManager : MonoBehaviour
         if(checker.IsPuzzleComplete() == false &&
             LevelDetailsManager.Instance.GetMoveCount() <= 0)
         {
+            int currentLevel = LevelStageManager.Instance.SelectedLevel;
+
             LevelDetailsManager.Instance.StopTimer();
+            if (!StarRatingManager.Instance.HasLevelStarRewarded(currentLevel))
+            {
+                StarRatingManager.Instance.SetStars(currentLevel, 0); // no stars
+
+            }
+
             if (checker != null) checker.OnGameOver();
             AudioManager.Instance.PlayGameOver();        
 

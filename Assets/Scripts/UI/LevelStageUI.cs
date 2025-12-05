@@ -11,6 +11,7 @@ public class LevelStageUI : MonoBehaviour
     public GameObject stage1Container;
     public GameObject stage2Container;
     public GameObject stage3Container;
+    public GameObject stage4Container;
     public Button levelButtonPrefab; // assign prefab
     public GameObject leftBtn;
     public GameObject rightBtn;
@@ -30,8 +31,10 @@ public class LevelStageUI : MonoBehaviour
 
     private void CreateLevelButtons()
     {
-        GameObject[] stageContainers = { stage1Container, stage2Container, stage3Container };
-        int[,] stageRanges = { {1, 12}, {13, 28}, {29, 58} }; // stage min and max levels
+        // GameObject[] stageContainers = { stage1Container, stage2Container, stage3Container };
+        // int[,] stageRanges = { {1, 12}, {13, 28}, {29, 58} }; // stage min and max levels
+        GameObject[] stageContainers = { stage1Container, stage2Container, stage3Container, stage4Container };
+        int[,] stageRanges = { {1, 12}, {13, 28}, {29, 44}, {45, 58} }; // stage min and max levels
 
         int unlocked = LevelStageManager.Instance.UnlockedLevel;
 
@@ -64,8 +67,8 @@ public class LevelStageUI : MonoBehaviour
     public void RefreshLevelButtons()
     {
 
-        // PlayerPrefs.SetInt("UnlockedLevel", 50);
-        // PlayerPrefs.Save();
+        PlayerPrefs.SetInt("UnlockedLevel", 50);
+        PlayerPrefs.Save();
 
         int unlocked = LevelStageManager.Instance.UnlockedLevel;
         Debug.Log("refresh " + unlocked);
@@ -98,7 +101,7 @@ public class LevelStageUI : MonoBehaviour
     {
         AudioManager.Instance.PlayButtonClick();
 
-        if (currentStageIndex < 3)
+        if (currentStageIndex < 4)
         {
             currentStageIndex++;
             ShowStage(currentStageIndex);
@@ -110,6 +113,7 @@ public class LevelStageUI : MonoBehaviour
         stage1Container.SetActive(false);
         stage2Container.SetActive(false);
         stage3Container.SetActive(false);
+        stage4Container.SetActive(false);
 
         switch (index)
         {
@@ -127,6 +131,12 @@ public class LevelStageUI : MonoBehaviour
                 break;
             case 3:
                 stage3Container.SetActive(true);
+                stageName.text = "5x5 Puzzles";
+                leftBtn.SetActive(true);
+                rightBtn.SetActive(true);
+                break;
+            case 4:
+                stage4Container.SetActive(true);
                 stageName.text = "5x5 Puzzles";
                 leftBtn.SetActive(true);
                 rightBtn.SetActive(false);
