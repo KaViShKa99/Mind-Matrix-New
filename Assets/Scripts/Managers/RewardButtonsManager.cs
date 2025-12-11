@@ -107,7 +107,9 @@ public class RewardButtonsManager : MonoBehaviour
 
     void WatchAdReward(string claimKey, string adsKey, int neededAds, int reward, string eventName)
     {
+#if UNITY_ANDROID || UNITY_IOS
         FirebaseInit.Instance.LogButtonClickedEvent(eventName);
+#endif
 
         if (PlayerPrefs.GetInt(claimKey, 0) == 1) return;
 
@@ -136,8 +138,12 @@ public class RewardButtonsManager : MonoBehaviour
     void EarnCoins(int amount)
     {
         CoinManager.Instance.AddCoins(amount);
+
+#if UNITY_ANDROID || UNITY_IOS        
         GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;
         GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+#endif
+
     }
 
     void UpdateAllUI()

@@ -1,67 +1,3 @@
-// using UnityEngine;
-// using GooglePlayGames;
-// using GooglePlayGames.BasicApi;
-// using UnityEngine.SocialPlatforms;
-
-// public class GooglePlayManager : MonoBehaviour
-// {
-//     public static GooglePlayManager Instance;
-
-//     private void Awake()
-//     {
-//         if (Instance == null) {
-//             Instance = this;
-//             DontDestroyOnLoad(gameObject);
-//         }
-//         else {
-//             Destroy(gameObject);
-//         }
-//     }
-
-//     private void Start()
-//     {
-//         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
-//     }
-
-//     internal void ProcessAuthentication(SignInStatus status)
-//     {
-//         if (status == SignInStatus.Success)
-//         {
-//             Debug.Log("GPGS Login Success!");
-//         }
-//         else
-//         {
-//             Debug.Log("GPGS Login Failed!");
-//         }
-//     }
-
-//     // ============================
-//     //     ACHIEVEMENT METHODS
-//     // ============================
-
-//     /// Unlock an achievement instantly
-//     public void UnlockAchievement(string achievementID)
-//     {
-//         PlayGamesPlatform.Instance.ReportProgress(achievementID, 100f, (bool success) => {
-//             Debug.Log("Achievement Unlock: " + success);
-//         });
-//     }
-
-//     /// Increment an incremental achievement
-//     public void IncrementAchievement(string achievementID, int steps)
-//     {
-//         PlayGamesPlatform.Instance.IncrementAchievement(achievementID, steps, (bool success) => {
-//             Debug.Log("Increment Achievement: " + success);
-//         });
-//     }
-
-//     /// Show the achievements UI
-//     public void ShowAchievementsUI()
-//     {
-//         PlayGamesPlatform.Instance.ShowAchievementsUI();
-//     }
-// }
-
 using UnityEngine;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
@@ -70,13 +6,11 @@ using UnityEngine.SocialPlatforms;
 using System;
 using System.Text;
 
-
 public class GooglePlayManager : MonoBehaviour
 {
     public static GooglePlayManager Instance;
     public PlayerData playerData;
     public event Action<PlayerData> OnCloudDataLoaded;
-
 
     private void Awake()
     {
@@ -84,9 +18,7 @@ public class GooglePlayManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
             playerData = new PlayerData();
-
         }
         else
         {
@@ -96,10 +28,8 @@ public class GooglePlayManager : MonoBehaviour
 
     private void Start()
     {
-    
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
-
     }
 
     private void ProcessAuthentication(SignInStatus status)
@@ -111,33 +41,12 @@ public class GooglePlayManager : MonoBehaviour
                 if (loadedData != null)
                 {
                     playerData = loadedData;
-                    PlayerPrefs.SetInt("Coins", playerData.coins);
-                    PlayerPrefs.SetInt("UnlockedLevel", playerData.unlockedLevel);
-                    PlayerPrefs.SetInt("SelectedLevel", playerData.currentLevel);
-
-                    PlayerPrefs.SetInt("LevelReward_" + playerData.currentLevel, 1);
-
-
-                    // PlayerPrefs.SetInt("Lives", playerData.lives);
-                    // PlayerPrefs.SetString("LastLifeUnix", playerData.lastLifeUnix.ToString());
-
-
-                    PlayerPrefs.Save();
-                    Debug.Log("Loaded player data from cloud "+playerData);
+                    SyncCloudToPlayerPrefs();
                     OnCloudDataLoaded?.Invoke(playerData);
                 }
                 else
                 {
-                    playerData.coins = PlayerPrefs.GetInt("Coins", 0);
-                    playerData.currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
-                    playerData.unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
-                    playerData.levelReward = PlayerPrefs.GetInt("LevelReward_" + playerData.currentLevel, 0);
-
-                    // playerData.lives = PlayerPrefs.GetInt("Lives", 5);
-                    // playerData.lastLifeUnix = PlayerPrefs.HasKey("LastLifeUnix") ? long.Parse(PlayerPrefs.GetString("LastLifeUnix")) : 0;
-
-
-                    Debug.Log("No cloud save found, using default player data" +PlayerPrefs.GetInt("Coins", 0));
+                    LoadPlayerPrefsToPlayerData();
                     SaveGame(playerData);
                     OnCloudDataLoaded?.Invoke(playerData);
                 }
@@ -149,7 +58,6 @@ public class GooglePlayManager : MonoBehaviour
             Debug.LogError("GPGS Login Failed: " + status);
         }
     }
-
     // ============================
     //     ACHIEVEMENT METHODS
     // ============================
@@ -183,34 +91,18 @@ public class GooglePlayManager : MonoBehaviour
         PlayGamesPlatform.Instance.ShowAchievementsUI();
     }
 
-
-    // ============================
-    //     CLOUD SAVE METHODS
-    // ============================
+    // ===============================
+    // ===== CLOUD SAVE METHODS ======
+    // ===============================
 
     public void SaveGame(PlayerData data)
     {
-
-        if (PlayGamesPlatform.Instance == null)
-        {
-            Debug.LogWarning("PlayGamesPlatform not initialized!");
-            return;
-        }
-
+        if (PlayGamesPlatform.Instance == null) return;
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-
-        if (savedGameClient == null)
-        {
-            Debug.LogWarning("SavedGameClient not ready yet!");
-            return;
-        }
+        if (savedGameClient == null) return;
 
         string json = JsonUtility.ToJson(data);
-        Debug.Log("JSON saving: " + json);
-
         byte[] savedData = Encoding.UTF8.GetBytes(json);
-
-        // ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 
         savedGameClient.OpenWithAutomaticConflictResolution(
             "player_data",
@@ -224,11 +116,9 @@ public class GooglePlayManager : MonoBehaviour
                         .WithUpdatedDescription("Saved at " + DateTime.Now)
                         .Build();
 
-                    savedGameClient.CommitUpdate(game, update, savedData,
-                    (commitStatus, savedGame) =>
+                    savedGameClient.CommitUpdate(game, update, savedData, (commitStatus, savedGame) =>
                     {
-                        Debug.Log("Game Saved Result: " + commitStatus +
-                                " | Coins Saved: " + data.coins);
+                        Debug.Log("Game Saved Result: " + commitStatus + " | Coins Saved: " + data.coins);
                     });
                 }
                 else
@@ -238,11 +128,9 @@ public class GooglePlayManager : MonoBehaviour
             });
     }
 
-
     public void LoadGame(Action<PlayerData> onLoaded)
     {
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-
         savedGameClient.OpenWithAutomaticConflictResolution(
             "player_data",
             DataSource.ReadCacheOrNetwork,
@@ -256,47 +144,70 @@ public class GooglePlayManager : MonoBehaviour
                         if (readStatus == SavedGameRequestStatus.Success)
                         {
                             string json = Encoding.UTF8.GetString(data);
-                            Debug.Log("Loaded JSON: " + json);
-
                             PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
                             onLoaded?.Invoke(loadedData);
                         }
                         else
                         {
-                            Debug.LogError("Failed to read save: " + readStatus);
                             onLoaded?.Invoke(null);
                         }
                     });
                 }
                 else
                 {
-                    Debug.LogError("Failed to open save: " + status);
                     onLoaded?.Invoke(null);
                 }
             });
     }
 
-    // ============================
-    //     DELETE CLOUD SAVE (FOR TESTING)
-    // ============================
+    // ===============================
+    // ===== SYNC CLOUD & LOCAL ======
+    // ===============================
+
+    private void SyncCloudToPlayerPrefs()
+    {
+        PlayerPrefs.SetInt("Coins", playerData.coins);
+        PlayerPrefs.SetInt("UnlockedLevel", playerData.unlockedLevel);
+        PlayerPrefs.SetInt("SelectedLevel", playerData.currentLevel);
+        PlayerPrefs.SetInt("LevelReward_" + playerData.currentLevel, playerData.levelReward);
+
+        // Sync stars
+        foreach (var starData in playerData.starRatings)
+        {
+            PlayerPrefs.SetInt("Stars_Level_" + starData.levelIndex, starData.stars);
+        }
+        PlayerPrefs.Save();
+    }
+
+    private void LoadPlayerPrefsToPlayerData()
+    {
+        playerData.coins = PlayerPrefs.GetInt("Coins", 0);
+        playerData.currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
+        playerData.unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        playerData.levelReward = PlayerPrefs.GetInt("LevelReward_" + playerData.currentLevel, 0);
+
+        playerData.starRatings.Clear();
+        for (int i = 1; i <= 200; i++)
+        {
+            if (PlayerPrefs.HasKey("Stars_Level_" + i))
+            {
+                int s = PlayerPrefs.GetInt("Stars_Level_" + i);
+                playerData.starRatings.Add(new LevelStarData(i, s));
+            }
+        }
+    }
+
+    // ===============================
+    // ===== DELETE CLOUD SAVE =======
+    // ===============================
 
     public void DeleteCloudSave()
     {
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
-        if (PlayGamesPlatform.Instance == null)
-        {
-            Debug.LogError("PlayGamesPlatform not initialized!");
-            return;
-        }
-
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-        if (savedGameClient == null)
-        {
-            Debug.LogError("SavedGame client not ready yet. Make sure user is logged in.");
-            return;
-        }
+        if (savedGameClient == null) return;
 
         savedGameClient.OpenWithAutomaticConflictResolution(
             "player_data",
@@ -315,6 +226,4 @@ public class GooglePlayManager : MonoBehaviour
                 }
             });
     }
-
-
 }

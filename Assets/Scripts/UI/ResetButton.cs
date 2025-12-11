@@ -4,6 +4,7 @@ public class ResetButton : MonoBehaviour
 {
     public void OnResetPressed()
     {
+#if UNITY_ANDROID || UNITY_IOS
         if (GooglePlayManager.Instance != null)
         {
             GooglePlayManager.Instance.DeleteCloudSave();
@@ -14,5 +15,9 @@ public class ResetButton : MonoBehaviour
         {
             Debug.LogError("GooglePlayManager not found!");
         }
+#endif
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("PlayerPrefs reset!");
     }
 }

@@ -9,7 +9,7 @@ public class LevelStageManager : MonoBehaviour
 
     public int UnlockedLevel { get; private set; } = 1;
     public int SelectedLevel { get; private set; } = 1;
-    private int currentLevel;
+    // private int currentLevel;
 
 
     private void Awake()
@@ -23,12 +23,20 @@ public class LevelStageManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        // // Subscribe safely to cloud event
+        // if (GooglePlayManager.Instance != null)
+        // {
+        //     GooglePlayManager.Instance.OnCloudDataLoaded += OnCloudDataLoaded;
+
+        // }
+
+    #if UNITY_ANDROID || UNITY_IOS
         // Subscribe safely to cloud event
         if (GooglePlayManager.Instance != null)
         {
             GooglePlayManager.Instance.OnCloudDataLoaded += OnCloudDataLoaded;
-
         }
+    #endif
 
         LoadProgress();
         CheckForAppUpdate();
@@ -71,13 +79,25 @@ public class LevelStageManager : MonoBehaviour
         PlayerPrefs.SetInt("SelectedLevel", SelectedLevel);
         PlayerPrefs.Save();
 
-        // Update cloud save
-        if (GooglePlayManager.Instance != null && GooglePlayManager.Instance.playerData != null)
-        {
-            GooglePlayManager.Instance.playerData.currentLevel = SelectedLevel;
-            GooglePlayManager.Instance.playerData.unlockedLevel = UnlockedLevel;
-            GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
-        }
+        // // Update cloud save
+        // if (GooglePlayManager.Instance != null && GooglePlayManager.Instance.playerData != null)
+        // {
+        //     GooglePlayManager.Instance.playerData.currentLevel = SelectedLevel;
+        //     GooglePlayManager.Instance.playerData.unlockedLevel = UnlockedLevel;
+        //     GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+        // }
+
+#if UNITY_ANDROID || UNITY_IOS
+if (GooglePlayManager.Instance != null && GooglePlayManager.Instance.playerData != null)
+    {
+        GooglePlayManager.Instance.playerData.currentLevel = SelectedLevel;
+        GooglePlayManager.Instance.playerData.unlockedLevel = UnlockedLevel;
+        GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+    }
+#else
+    // WebGL or other platforms – optionally save locally or skip
+    Debug.Log("💾 Cloud save skipped on WebGL / non-mobile platform");
+#endif
 
         Debug.Log($"Current Level: {SelectedLevel - 1} -> Next: {SelectedLevel}");
         Debug.Log($"Unlocked Level: {UnlockedLevel}");
@@ -108,7 +128,7 @@ public class LevelStageManager : MonoBehaviour
     public string GetSceneName(int level)
     {
         if (level < 13) return "GameLevel3by3Scene";
-        if (level < 29) return "GameLevel4by4Scene";
+        if (level < 33) return "GameLevel4by4Scene";
         return "GameLevel5by5Scene";
     }
 

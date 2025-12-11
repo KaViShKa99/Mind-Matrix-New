@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5597553673569586828}
   - component: {fileID: 5475230062202474180}
   - component: {fileID: 1361293816520070944}
+  - component: {fileID: 9197893424716935753}
   m_Layer: 5
   m_Name: Tile
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 355c7347ca1ce43adbe99f4d5242ef6c, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -123,6 +124,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tile
   tileManager: {fileID: 0}
   swipeThreshold: 50
+--- !u!114 &9197893424716935753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6950395301184929707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c847e3d3db9242e09e13497ee964ffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8875926931152118521
 GameObject:
   m_ObjectHideFlags: 0

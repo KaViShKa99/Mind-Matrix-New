@@ -18,12 +18,14 @@ public class CoinManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
+            
+#if UNITY_ANDROID || UNITY_IOS
+            // Subscribe safely to cloud event                      
             if (GooglePlayManager.Instance != null)
             {
                 GooglePlayManager.Instance.OnCloudDataLoaded += OnCloudDataLoaded;
             }
-
+#endif
             LoadData();
             OnCoinsChanged?.Invoke(coins);
 
@@ -127,12 +129,15 @@ public class CoinManager : MonoBehaviour
 
     private void SaveData()
     {
+        
+#if UNITY_ANDROID || UNITY_IOS
+
         if (GooglePlayManager.Instance != null && GooglePlayManager.Instance.playerData != null)
         {
             GooglePlayManager.Instance.playerData.coins = coins;
             GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
         }
-
+#endif
         PlayerPrefs.SetInt("Coins", coins);
         // PlayerPrefs.SetInt("Gems", gems);
         PlayerPrefs.Save();

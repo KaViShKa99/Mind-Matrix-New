@@ -170,7 +170,7 @@ public class PopupBoxUI : MonoBehaviour
             bool active = i < stars;
 
             starImages[i].sprite = active ? filledStar : emptyStar;
-            starImages[i].color = active ? Color.white : new Color(1, 1, 1, 0.25f);
+            starImages[i].color = active ? Color.white : new Color(0, 0, 0, 0.25f);
 
             starImages[i].transform.localScale = Vector3.zero;
 

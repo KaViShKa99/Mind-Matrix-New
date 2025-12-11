@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2761e9f240d7148f4882e62894c43004
+guid: c540c7b2627a94847908ea927dbb4c2d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3769796368332324268
-    second: hBtn_0
+      213: -7666961291223138298
+    second: hBtn 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +113,12 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
+    textureFormat: -1
     textureCompression: 1
-    compressionQuality: 100
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hBtn_0
+      name: hBtn 1_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 8
-        width: 501
-        height: 472
+        x: 152
+        y: 12
+        width: 387
+        height: 363
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cad7102e2d1015430800000000000000
-      internalID: 3769796368332324268
+      spriteID: 60089f1b35b799590800000000000000
+      internalID: -7666961291223138298
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      hBtn_0: 3769796368332324268
+      hBtn 1_0: -7666961291223138298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

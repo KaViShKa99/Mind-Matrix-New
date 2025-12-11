@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+
+#if UNITY_ANDROID || UNITY_IOS
 using Firebase;
 using Firebase.Analytics;
+#endif
 
 public class HomeMenu : MonoBehaviour
 {
@@ -22,32 +25,43 @@ public class HomeMenu : MonoBehaviour
 
     public void StartGame()
     {
+#if UNITY_ANDROID || UNITY_IOS
         FirebaseInit.Instance.LogButtonClickedEvent("start_game");
+#endif
         StartCoroutine(PlaySoundThenLoadGame());
 
     }
 
     public void LevelStage()
     {
+#if UNITY_ANDROID || UNITY_IOS
         FirebaseInit.Instance.LogButtonClickedEvent("level_stage");
+#endif
         StartCoroutine(PlaySoundThenLoad("LevelStageScene"));
     }
 
     public void HowToPlay()
     {
+#if UNITY_ANDROID || UNITY_IOS
         FirebaseInit.Instance.LogButtonClickedEvent("how_to_play");
+#endif
         StartCoroutine(PlaySoundThenLoad("HowToPlayScene"));
     }
     public void Achievement()
     {
-        FirebaseInit.Instance.LogButtonClickedEvent("achievement");
         // StartCoroutine(PlaySoundThenLoad("AchievementScene"));
+#if UNITY_ANDROID || UNITY_IOS
+        FirebaseInit.Instance.LogButtonClickedEvent("achievement");
         GooglePlayManager.Instance.ShowAchievementsUI();
+#endif
+
     }
 
     public void ShowCoinsShop()
     {
+#if UNITY_ANDROID || UNITY_IOS
         FirebaseInit.Instance.LogButtonClickedEvent("show_coins_shop");
+#endif
         AudioManager.Instance.PlayButtonClick();
         if (coinsShopUI != null) coinsShopUI.ShowPopup();
     }
@@ -82,10 +96,9 @@ public class HomeMenu : MonoBehaviour
         yield return new WaitForSeconds(0.3f); // wait for sound to finish
 
         currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
-        // string nextScene = currentLevel < 13 ? "GameLevel3by3Scene" : "GameLevel4by4Scene";
         string nextScene = currentLevel < 13 
                 ? "GameLevel3by3Scene" 
-                : currentLevel < 29 
+                : currentLevel < 34 
                     ? "GameLevel4by4Scene" 
                     : "GameLevel5by5Scene";
         TransitionToScene(nextScene);

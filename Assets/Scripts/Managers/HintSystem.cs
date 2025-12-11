@@ -19,6 +19,138 @@ public class HintSystem : MonoBehaviour
         this.gridSize = gridSize;
     }
 
+
+    public void OnUndo1() => StartCoroutine(UndoWithDelay(1));
+    public void OnUndo2() => StartCoroutine(UndoWithDelay(2));
+    public void OnUndo3() => StartCoroutine(UndoWithDelay(3));
+
+    private IEnumerator UndoWithDelay(int steps)
+    {
+        yield return new WaitForSeconds(0.4f); // your delay amount
+        tileManager.ReverseMoves(steps);
+    }
+
+    public void ShowUndoAfterAd(int steps)
+    {
+        if (AdsManager.Instance != null)
+        {
+            AdsManager.Instance.ShowRewarded(() =>
+            {
+                StartCoroutine(UndoWithDelay(steps));
+            });
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ AdsManager not found — undoing directly.");
+            StartCoroutine(UndoWithDelay(steps));
+        }
+    }
+
+    public void ShowUndoAfterCoinSpent(int steps)
+    {
+        StartCoroutine(UndoWithDelay(steps));
+    }
+
+    /////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////   
+    /// <summary>
+    /// ///// auto place methods /////
+    /// </summary>  
+    /// //////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
+
+    public void OnAutoPlace1() => StartCoroutine(AutoPlaceTiles(1));
+    public void OnAutoPlace2() => StartCoroutine(AutoPlaceTiles(2));
+    public void OnAutoPlace3() => StartCoroutine(AutoPlaceTiles(3));
+
+
+    private IEnumerator AutoPlaceTiles(int stepsToPlay)
+    {
+        // if (isAnimating) yield break;
+
+        int total = gridSize * gridSize;
+        int[] start = tileManager.GetStateArray();
+
+        int[] goal = new int[total];
+        for (int i = 0; i < total - 1; i++) goal[i] = i + 1;
+        goal[total - 1] = 0;
+
+        List<int[]> path = SolveAStar(start, goal);
+        if (path == null || path.Count < 2)
+        {
+            Debug.Log("AutoPlace: No path found.");
+            yield break;
+        }
+
+        int placed = 0;
+
+        for (int i = 1; i < path.Count && placed < stepsToPlay; i++)
+        {
+            // Get states
+            int[] prev = path[i - 1];
+            int[] next = path[i];
+
+            // Find empty tile indices
+            int emptyPrev = System.Array.IndexOf(prev, 0);
+            int emptyNext = System.Array.IndexOf(next, 0);
+
+            // The tile that moves into the empty
+            int movedTileIndex = emptyNext;
+
+            Transform tile = tileManager.GetTileAtIndex(movedTileIndex);
+            if (tile == null)
+                continue;
+
+            // Auto move tile (your real animation)
+            tileManager.TryMoveTile(tile);
+
+            placed++;
+
+            // Wait until sliding finishes
+            // while (isAnimating)
+            //     yield return null;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public void ShowAutoPlaceAfterAd(int steps)
+    {
+        if (AdsManager.Instance != null)
+        {
+            AdsManager.Instance.ShowRewarded(() =>
+            {
+                // StartCoroutine(AutoPlaceTiles(steps));
+                StartCoroutine(DelayedAutoPlace(steps));
+
+            });
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ AdsManager not found — auto-placing directly.");
+            StartCoroutine(AutoPlaceTiles(steps));
+        }
+    }
+
+    public void ShowAutoPlaceAfterCoinSpent(int steps)
+    {
+        // StartCoroutine(AutoPlaceTiles(steps));
+        StartCoroutine(DelayedAutoPlace(steps));
+
+    }
+
+    private IEnumerator DelayedAutoPlace(int steps)
+    {
+        yield return new WaitForSeconds(0.4f); // ⭐ delay after ad
+        StartCoroutine(AutoPlaceTiles(steps));
+    }
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// ///// hint methods /////
+    /// </summary>
+
     public void ShowHintsAfterCoinSpent()
     {
         StartCoroutine(HintCoroutine());

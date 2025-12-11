@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+
+
+#if UNITY_ANDROID || UNITY_IOS
 using Firebase;
 using Firebase.Analytics;
+#endif
 
 
 public class TileManager : MonoBehaviour
@@ -25,6 +30,15 @@ public class TileManager : MonoBehaviour
     private Transform emptyTile;
     private bool isAnimating = false;
 
+    private Stack<MoveRecord> moveHistory = new Stack<MoveRecord>();
+
+    [System.Serializable]
+    public class MoveRecord
+    {
+        public int tileIndex;
+        public int emptyIndex;
+    }
+
     public void Initialize(int gridSize)
     {
         this.gridSize = gridSize;
@@ -32,6 +46,7 @@ public class TileManager : MonoBehaviour
 
     public void GenerateGrid()
     {
+        moveHistory.Clear();
         // clean
         foreach (Transform child in tileContainer) Destroy(child.gameObject);
 
@@ -70,6 +85,88 @@ public class TileManager : MonoBehaviour
         return true;
     }
 
+    public Vector3 UIToWorld(RectTransform uiElement, Camera uiCamera)
+    {
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(uiCamera, uiElement.position);
+        Vector3 worldPos = uiCamera.ScreenToWorldPoint(screenPos);
+        worldPos.z = 0; // force particles on correct Z plane
+        return worldPos;
+    }
+
+    private IEnumerator ReverseMovesCoroutine(int stepsToReverse)
+    {
+        if (isAnimating) yield break;
+
+        int reversed = 0;
+
+        while (reversed < stepsToReverse && moveHistory.Count > 0)
+        {
+            MoveRecord last = moveHistory.Pop();
+
+            Transform tile = tileContainer.GetChild(last.emptyIndex);
+            Transform empty = tileContainer.GetChild(last.tileIndex);
+
+            yield return StartCoroutine(ReverseSlide((RectTransform)tile, (RectTransform)empty));
+
+            reversed++;
+
+            yield return new WaitForSeconds(0.05f); // optional small delay between steps
+        }
+    }
+    public void ReverseMoves(int steps)
+    {
+        StartCoroutine(ReverseMovesCoroutine(steps));
+    }
+
+
+    private IEnumerator ReverseSlide(RectTransform tileRect, RectTransform emptyRect)
+    {
+        isAnimating = true;
+
+        Vector2 start = tileRect.anchoredPosition;
+        Vector2 end = emptyRect.anchoredPosition;
+
+        gridLayoutGroup.enabled = false;
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / slideDuration;
+            tileRect.anchoredPosition = Vector2.Lerp(start, end, Mathf.SmoothStep(0f, 1f, t));
+            yield return null;
+        }
+        tileRect.anchoredPosition = end;
+
+         // ⭐ CONVERT UI POS → WORLD POS
+        Vector3 worldPos = UIToWorld(tileRect, Camera.main);
+
+        // ⭐ SPAWN BURST HERE
+        TileBurstSpawner.Instance.SpawnBurst(worldPos);
+
+        // ⭐ PLAY SQUEEZE ANIMATION
+        tileRect.GetComponent<TileSqueeze>().PlaySqueeze();
+
+        // swap back sibling indexes
+        int tileIndex = tileRect.GetSiblingIndex();
+        int emptyIndex = emptyTile.GetSiblingIndex();
+
+        tileRect.SetSiblingIndex(emptyIndex);
+        emptyTile.SetSiblingIndex(tileIndex);
+
+        gridLayoutGroup.enabled = true;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(tileContainer);
+
+        isAnimating = false;
+
+        // HandlePostMove();
+        AudioManager.Instance.PlayTileSlide();
+
+        if (checker != null)
+            checker.CheckCorrectTiles();
+    }
+
+
+
     private IEnumerator SlideTile(RectTransform tileRect)
     {
         isAnimating = true;
@@ -90,8 +187,21 @@ public class TileManager : MonoBehaviour
         }
         tileRect.anchoredPosition = end;
 
+        // ⭐ CONVERT UI POS → WORLD POS
+        Vector3 worldPos = UIToWorld(tileRect, Camera.main);
+
+        // ⭐ SPAWN BURST HERE
+        TileBurstSpawner.Instance.SpawnBurst(worldPos);
+
+        // ⭐ PLAY SQUEEZE ANIMATION
+        tileRect.GetComponent<TileSqueeze>().PlaySqueeze();
+
         int tileIndex = tileRect.GetSiblingIndex();
         int emptyIndex = emptyTile.GetSiblingIndex();
+
+        // ⭐ RECORD MOVE — MUST BE BEFORE INDEX SWAP
+        moveHistory.Push(new MoveRecord { tileIndex = tileIndex, emptyIndex = emptyIndex });
+
 
         tileRect.SetSiblingIndex(emptyIndex);
         emptyTile.SetSiblingIndex(tileIndex);
@@ -135,8 +245,9 @@ public class TileManager : MonoBehaviour
             CoinManager.Instance.RewardLevel(currentLevel, 100);
             AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
             
-           
+#if UNITY_ANDROID || UNITY_IOS       
             FirebaseInit.Instance.LogLevelCompleteEvent();
+#endif
             LevelPlayCounter.Instance.OnLevelCompleted();
 
 
@@ -156,7 +267,9 @@ public class TileManager : MonoBehaviour
             if (checker != null) checker.OnGameOver();
             AudioManager.Instance.PlayGameOver();        
 
+#if UNITY_ANDROID || UNITY_IOS
             FirebaseInit.Instance.LogLevelFailedEvent();
+#endif
 
         }
     }
@@ -204,6 +317,14 @@ public class TileManager : MonoBehaviour
         newTile.transform.localPosition = oldLocalPos;
         var label = newTile.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         if (label) label.text = tileNumber.ToString();
+
+        // ⭐ Ensure TileSqueeze exists
+        TileSqueeze squeeze = newTile.GetComponent<TileSqueeze>();
+        if (squeeze == null)
+            squeeze = newTile.AddComponent<TileSqueeze>();
+
+        // ⭐ PLAY squeeze on the new tile
+        squeeze.PlaySqueeze();
     }
 
     public void ReplaceWithNormalTile(int siblingIndex, int tileNumber)
@@ -217,6 +338,14 @@ public class TileManager : MonoBehaviour
         newTile.transform.localPosition = oldLocalPos;
         var label = newTile.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         if (label) label.text = tileNumber.ToString();
+
+        // ⭐ Ensure TileSqueeze exists
+        TileSqueeze squeeze = newTile.GetComponent<TileSqueeze>();
+        if (squeeze == null)
+            squeeze = newTile.AddComponent<TileSqueeze>();
+
+        // ⭐ PLAY squeeze on the new tile
+        squeeze.PlaySqueeze();
     }
 
     public Vector2Int IndexToGrid(int index) => new Vector2Int(index % gridSize, index / gridSize);
@@ -250,5 +379,13 @@ public class TileManager : MonoBehaviour
             StartCoroutine(SlideTile((RectTransform)tile));
         }
     }
+
+    public int GetMoveCount()
+    {
+        return moveHistory.Count;
+    }
+
+
+    
 
 }

@@ -52,11 +52,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicSource: {fileID: 872516967391472694}
   sfxSource: {fileID: 318957898346289248}
-  backgroundMusic: {fileID: 8300000, guid: 44d335ad7775c41a6af742bb5ebfc115, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: c1478e91af9c24894a6fd421866ce80e, type: 3}
-  tileMoveSound: {fileID: 8300000, guid: 3dd354566061f4902a68100fb7f450b5, type: 3}
-  gameWonSound: {fileID: 8300000, guid: 33ae4d45a1bdb41eb90c681269d5daca, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 78bb9aad60cba47c38b7e3bd86da7eca, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: ee902a5f426ef4ae583377e86585e160, type: 3}
+  buttonClickSound: {fileID: 8300000, guid: c13826a1182d344229871bbaaebe8027, type: 3}
+  tileMoveSound: {fileID: 8300000, guid: a397f345f0fc8490f85d9eb2a438f8bf, type: 3}
+  gameWonSound: {fileID: 8300000, guid: d510c621015554889bc524ca8b3e8f4b, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 0d9cffb80725747a6acb2498387302dc, type: 3}
 --- !u!1001 &6920712194484665242
 PrefabInstance:
   m_ObjectHideFlags: 0

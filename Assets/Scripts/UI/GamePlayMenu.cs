@@ -19,12 +19,15 @@ public class GamePlayMenu : MonoBehaviour
     public PopupBoxUI gameQuitUI;
     public PopupBoxUI gameRetryPopup;
     public PopupBoxUI hintShowPopup;
-    public PopupBoxUI hintsCoinsNotEnoughPopup;
-    public PopupBoxUI retryCoinsNotEnoughPopup;
+    public PopupBoxUI autoReplacePopup;
+    public PopupBoxUI undoPopup;
+    public PopupBoxUI CoinsNotEnoughPopup;
+    public PopupBoxUI noMovesToUndoPopup;
 
     private int nextLevel;
     private int currentLevel;
-    public HintSystem hintSystem;    // public LevelDetailsManager levelDetailsManager;
+    public HintSystem hintSystem;  
+    public TileManager tileManager;  
 
 
 
@@ -54,14 +57,15 @@ public class GamePlayMenu : MonoBehaviour
 
         LevelDetailsManager.Instance.StopTimer();
 
-        currentLevel = LevelDetailsManager.Instance.GetLevel();
+        // currentLevel = LevelDetailsManager.Instance.GetLevel();
+        string sceneToLoad = LevelStageManager.Instance.GetSceneName(LevelDetailsManager.Instance.GetLevel());
+
         
-        
-        string sceneToLoad = currentLevel < 13
-            ? "GameLevel3by3Scene"
-            : currentLevel < 29
-                ? "GameLevel4by4Scene"
-                : "GameLevel5by5Scene";
+        // string sceneToLoad = currentLevel < 13
+        //     ? "GameLevel3by3Scene"
+        //     : currentLevel < 34
+        //         ? "GameLevel4by4Scene"
+        //         : "GameLevel5by5Scene";
 
         StartCoroutine(LoadLevelAfterAd(sceneToLoad));
 
@@ -157,71 +161,8 @@ public class GamePlayMenu : MonoBehaviour
         if (pauseMenuUI != null) pauseMenuUI.ClosedPopup();
     }
  
-    /// <summary>
-    /// ///////////////////////////// Retry Popup ////////////////////////////
-    /// </summary>
-    public void ShowGameRetryPopup()
-    {
-        LevelDetailsManager.Instance.StopTimer();
-        AudioManager.Instance.PlayButtonClick();    
-        if (gameRetryPopup != null) gameRetryPopup.ShowPopup();
-    }
-    public void ClosedGameRetryPopup()
-    {
-        AudioManager.Instance.PlayButtonClick();
-        if (gameRetryPopup != null) gameRetryPopup.ClosedPopup();
-        StartCoroutine(StartTimerAfterHint());
-    }
-    public void AdWatchBtnInGameRetryPopup()
-    {
-        LevelDetailsManager.Instance.AddAdWatch();
-        LevelDetailsManager.Instance.AddRestart();
-
-        AudioManager.Instance.PlayButtonClick();
-        ClosedGameRetryPopup();         
-        Retry();
-    }
-    public void CoinSpentBtnInGameRetryPopup()
-    {
-        AudioManager.Instance.PlayButtonClick();
-        if (CoinManager.Instance.SpendCoins(200))
-        {
-            LevelDetailsManager.Instance.AddAdWatch();
-            LevelDetailsManager.Instance.AddRestart();
-
-            GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;
-            GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
-            ClosedGameRetryPopup();         
-            Retry();
-        }else
-        {
-            ClosedGameRetryPopup();         
-            if (retryCoinsNotEnoughPopup != null) retryCoinsNotEnoughPopup.ShowPopup();
-        }
-
-    }
-
-    public void AdWatchBtnInRetryCoinsNotEnoughPopup()
-    {
-        LevelDetailsManager.Instance.AddAdWatch();
-        LevelDetailsManager.Instance.AddRestart();
-
-        AudioManager.Instance.PlayButtonClick();
-        if (hintSystem != null)
-        {
-            ClosedRetryCoinsNotEnoughPopup();         
-            Retry();
-        }
-
-    }
-
-    public void ClosedRetryCoinsNotEnoughPopup()
-    {
-        if (retryCoinsNotEnoughPopup != null) retryCoinsNotEnoughPopup.ClosedPopup();
-
-    }
-
-
+    //////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////
     /// <summary>
     /// ///////////////////////////// Hint Popup ////////////////////////////
     /// </summary>
@@ -237,11 +178,14 @@ public class GamePlayMenu : MonoBehaviour
     {
         AudioManager.Instance.PlayButtonClick();
         if (hintShowPopup != null) hintShowPopup.ClosedPopup();
-        StartCoroutine(StartTimerAfterHint());
+        // StartCoroutine(StartTimerAfterHint());
+        LevelDetailsManager.Instance.StartTimer();
+
 
     }
     public void AdWatchBtnInHintPopup()
     {
+        LevelDetailsManager.Instance.StopTimer();
         LevelDetailsManager.Instance.AddAdWatch();
         LevelDetailsManager.Instance.AddHint();
 
@@ -260,19 +204,44 @@ public class GamePlayMenu : MonoBehaviour
         AudioManager.Instance.PlayButtonClick();
         if (CoinManager.Instance.SpendCoins(150))
         {
-            LevelDetailsManager.Instance.AddAdWatch();
+            // LevelDetailsManager.Instance.AddAdWatch();
             LevelDetailsManager.Instance.AddHint();
 
+#if UNITY_ANDROID || UNITY_IOS
             GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;
             GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+#endif
+
             ClosedHintPopup();         
             hintSystem.ShowHintsAfterCoinSpent();
             StartCoroutine(StartTimerAfterHint());
         }else
         {
-            ClosedHintPopup();         
-            if (hintsCoinsNotEnoughPopup != null) hintsCoinsNotEnoughPopup.ShowPopup();
+            ClosedHintPopup(); 
+            LevelDetailsManager.Instance.StopTimer();  
+            StartCoroutine(StartCoinNotEnoughPopup());
         }
+
+    }
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    /// <summary>
+    /// /////////////////////////////  Coins Not Enough Popup ////////////////////////////
+    /// </summary>
+
+
+    private IEnumerator StartCoinNotEnoughPopup()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (CoinsNotEnoughPopup != null) CoinsNotEnoughPopup.ShowPopup();
+    }
+
+    public void ClosedCoinsNotEnoughPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (CoinsNotEnoughPopup != null) CoinsNotEnoughPopup.ClosedPopup();
+        LevelDetailsManager.Instance.StartTimer();
+
 
     }
 
@@ -284,27 +253,186 @@ public class GamePlayMenu : MonoBehaviour
         AudioManager.Instance.PlayButtonClick();
         if (hintSystem != null)
         {
-            ClosedHintsCoinsNotEnoughPopup();         
+            ClosedCoinsNotEnoughPopup();         
             hintSystem.ShowHintsAfterAd();
             StartCoroutine(StartTimerAfterHint());
         }
-
-
     }
-
-    public void ClosedHintsCoinsNotEnoughPopup()
+    public void AdWatchBtnInAutoReplaceCoinsNotEnoughPopup()
     {
-        if (hintsCoinsNotEnoughPopup != null) hintsCoinsNotEnoughPopup.ClosedPopup();
+        LevelDetailsManager.Instance.AddAdWatch();
+        LevelDetailsManager.Instance.AddHint();
 
+        AudioManager.Instance.PlayButtonClick();
+        if (hintSystem != null)
+        {
+            ClosedCoinsNotEnoughPopup();         
+            hintSystem.ShowAutoPlaceAfterAd(1);
+            StartCoroutine(StartTimerAfterHint());
+        }
     }
 
-
-
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    
     private IEnumerator StartTimerAfterHint()
     {
         yield return new WaitForSeconds(1.0f);
         LevelDetailsManager.Instance.StartTimer();
     }
+    /// <summary>
+    /// ///////////////////////////// auto place Buttons ////////////////////////////
+    /// </summary>
+    // public void OnAutoPlaceHint1()
+    // {
+    //     AudioManager.Instance.PlayButtonClick();
+    //     if (hintSystem != null)
+    //     {
+    //         hintSystem.OnAutoPlace1();
+    //     }
+    // }
+    public void ShowAutoPlacePopup()
+    {
+        LevelDetailsManager.Instance.StopTimer();
+        AudioManager.Instance.PlayButtonClick();
+
+        if (autoReplacePopup != null) autoReplacePopup.ShowPopup();
+    }
+
+    public void ClosedAutoPlacePopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (autoReplacePopup != null) autoReplacePopup.ClosedPopup();
+        LevelDetailsManager.Instance.StartTimer();
+
+
+    }
+    public void AdWatchBtnInAutoPlacePopup()
+    {
+        LevelDetailsManager.Instance.StopTimer();
+        LevelDetailsManager.Instance.AddAdWatch();
+        LevelDetailsManager.Instance.AddHint();
+
+
+        AudioManager.Instance.PlayButtonClick();
+        if (hintSystem != null)
+        {
+            ClosedAutoPlacePopup();         
+            hintSystem.ShowAutoPlaceAfterAd(1);
+            StartCoroutine(StartTimerAfterHint());
+        }
+    }
+
+    public void CoinSpentBtnInAutoPlacePopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (CoinManager.Instance.SpendCoins(200))
+        {
+            // LevelDetailsManager.Instance.AddAdWatch();
+            LevelDetailsManager.Instance.AddHint();
+
+#if UNITY_ANDROID || UNITY_IOS
+            GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;
+            GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+#endif
+
+            ClosedAutoPlacePopup();         
+            hintSystem.ShowAutoPlaceAfterCoinSpent(1);
+            StartCoroutine(StartTimerAfterHint());
+        }else
+        {
+            ClosedAutoPlacePopup(); 
+            LevelDetailsManager.Instance.StopTimer();  
+            StartCoroutine(StartCoinNotEnoughPopup());
+        }
+
+    }
+
+
+    /// <summary>
+    /// /////////////////////////// undo Buttons ////////////////////////////
+    /// </summary>
+    /// 
+
+    public void ShowNoMovesToUndoPopup()
+    {
+        LevelDetailsManager.Instance.StopTimer();
+        if (noMovesToUndoPopup != null) noMovesToUndoPopup.ShowPopup();
+
+    }
+
+    public void ClosedNoMovesToUndoPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (noMovesToUndoPopup != null) noMovesToUndoPopup.ClosedPopup();
+        LevelDetailsManager.Instance.StartTimer();
+    }
+
+    public void ShowUndoPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+
+        int moves = tileManager.GetMoveCount();
+
+        if (moves > 0)
+        {
+            LevelDetailsManager.Instance.StopTimer();
+            undoPopup?.ShowPopup();
+        }
+        else
+        {
+            // Show small warning
+            Debug.Log("No moves to undo!");
+            ShowNoMovesToUndoPopup();
+        }
+    }
+
+    public void ClosedUndoPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (undoPopup != null) undoPopup.ClosedPopup();
+        LevelDetailsManager.Instance.StartTimer();
+    }
+    public void AdWatchBtnInUndoPopup()
+    {
+        LevelDetailsManager.Instance.StopTimer();
+        LevelDetailsManager.Instance.AddAdWatch();
+        LevelDetailsManager.Instance.AddHint(); 
+
+        AudioManager.Instance.PlayButtonClick();
+        if (hintSystem != null)
+        {
+            ClosedUndoPopup();         
+            hintSystem.ShowUndoAfterAd(1);
+            StartCoroutine(StartTimerAfterHint());
+        }
+    }
+    public void CoinSpentBtnInUndoPopup()
+    {
+        AudioManager.Instance.PlayButtonClick();
+        if (CoinManager.Instance.SpendCoins(250))
+        {
+            LevelDetailsManager.Instance.AddHint();
+#if UNITY_ANDROID || UNITY_IOS
+            GooglePlayManager.Instance.playerData.coins = CoinManager.Instance.coins;        
+            GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
+#endif  
+            ClosedUndoPopup();         
+            hintSystem.ShowUndoAfterCoinSpent(1);
+            StartCoroutine(StartTimerAfterHint());
+        }else
+        {
+            ClosedUndoPopup(); 
+            LevelDetailsManager.Instance.StopTimer();  
+            StartCoroutine(StartCoinNotEnoughPopup());
+        }
+
+    }
+
+
+    /// <summary>
+    /// ///////////////////////////// Sound and Load Scene ////////////////////////////
+    /// </summary>
 
     private IEnumerator PlaySoundThenLoad(string sceneName)
     {
