@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
+
 
 #if UNITY_ANDROID || UNITY_IOS
 using Firebase;
@@ -9,15 +11,21 @@ using Firebase.Analytics;
 
 public class HomeMenu : MonoBehaviour
 {
-
+    public TextMeshProUGUI startButtonText;
     public PopupBoxUI coinsShopUI;
     public PopupBoxUI settingsUI;
     private int currentLevel;
 
     private void Start()
     {
+        if (PlayerPrefs.GetInt("FTUE_Completed", 0) != 1)
+        {
+            StartCoroutine(PlaySoundThenLoad("FTUEScene"));
+            return;
+        }
         // Start background music when menu loads
         AudioManager.Instance.PlayBackgroundMusic();
+        startButtonText.text = "Level " + PlayerPrefs.GetInt("UnlockedLevel", 1);
 
     }
 
@@ -25,6 +33,10 @@ public class HomeMenu : MonoBehaviour
 
     public void StartGame()
     {
+        // CoinManager.Instance.AddCoins(10000000);
+        GameStartManager.StartMode = GameStartMode.UnlockedLevel;
+
+
 #if UNITY_ANDROID || UNITY_IOS
         FirebaseInit.Instance.LogButtonClickedEvent("start_game");
 #endif
@@ -34,6 +46,8 @@ public class HomeMenu : MonoBehaviour
 
     public void LevelStage()
     {
+        // CoinManager.Instance.AddCoins(10000000);
+
 #if UNITY_ANDROID || UNITY_IOS
         FirebaseInit.Instance.LogButtonClickedEvent("level_stage");
 #endif
@@ -95,7 +109,8 @@ public class HomeMenu : MonoBehaviour
         AudioManager.Instance.PlayButtonClick();
         yield return new WaitForSeconds(0.3f); // wait for sound to finish
 
-        currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
+        // currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
+        currentLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
         string nextScene = currentLevel < 13 
                 ? "GameLevel3by3Scene" 
                 : currentLevel < 34 

@@ -132,4 +132,25 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // 🔇 Turn OFF background music (SFX still works)
+    public void MuteBackgroundMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.Stop();        // stops music
+            musicSource.mute = true;   // ensures it stays silent
+        }
+    }
+
+    // 🔊 Turn ON background music again
+    public void UnmuteBackgroundMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.mute = false;
+            PlayBackgroundMusic();
+        }
+    }
+
+
 }

@@ -21,6 +21,8 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
+    m_path: Assets/Scenes/FTUEScene.unity
+  - m_enabled: 1
     m_path: Assets/Scenes/HomeScreenScene.unity
   - m_enabled: 1
     m_path: Assets/Scenes/HowToPlayScene.unity
@@ -179,7 +181,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 1.0.5-beta-1-v9'
+    - line: '|   bundleVersion: 1.0.5-beta-1-v11'
     - line: '|   preloadedAssets: []'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
@@ -210,7 +212,7 @@ MonoBehaviour:
     - line: '|     iPhone: 0'
     - line: '|     tvOS: 0'
     - line: '|   overrideDefaultApplicationIdentifier: 1'
-    - line: '|   AndroidBundleVersionCode: 37'
+    - line: '|   AndroidBundleVersionCode: 39'
     - line: '|   AndroidMinSdkVersion: 23'
     - line: '|   AndroidTargetSdkVersion: 0'
     - line: '|   AndroidPreferredInstallLocation: 1'

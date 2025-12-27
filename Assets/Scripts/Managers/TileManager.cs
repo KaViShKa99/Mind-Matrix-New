@@ -21,11 +21,15 @@ public class TileManager : MonoBehaviour
     public PuzzleChecker checker;
     public RectTransform popupCoinStart;
     public RectTransform coinUITopRight;
+    public FTUEManager ftueManager;
 
     [Header("Animation")]
     public float slideDuration = 0.15f;
 
     [HideInInspector] public int gridSize = 3;
+
+    [HideInInspector] public bool ftueLocked = false;
+
 
     private Transform emptyTile;
     private bool isAnimating = false;
@@ -211,14 +215,36 @@ public class TileManager : MonoBehaviour
 
         isAnimating = false;
 
-        HandlePostMove();
+        if (checker != null)
+            checker.CheckCorrectTiles();
+
+
+        // Notify FTUE step
+        // Inside SlideTile coroutine, after move:
+       if (ftueManager != null && ftueManager.IsActive())
+        {
+            AudioManager.Instance.PlayTileSlide();
+            ftueManager.OnCorrectFTUEMove(tileIndex);
+        }
+        else
+        {
+            HandlePostMove();
+        }
+
+
+        // if (!ftueManager.IsActive())
+        // {
+        //      HandlePostMove();
+        // }
+
+
     }
 
     // handle common post-move logic
     private void HandlePostMove()
     {
-        LevelDetailsManager.Instance.ReduceMove();
         AudioManager.Instance.PlayTileSlide();
+        LevelDetailsManager.Instance.ReduceMove();
 
         if (checker != null)
             checker.CheckCorrectTiles();
@@ -384,8 +410,5 @@ public class TileManager : MonoBehaviour
     {
         return moveHistory.Count;
     }
-
-
-    
 
 }

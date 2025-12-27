@@ -23,6 +23,7 @@ public class Tile : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+
         pointerUpPos = eventData.position;
         Vector2 swipe = pointerUpPos - pointerDownPos;
 

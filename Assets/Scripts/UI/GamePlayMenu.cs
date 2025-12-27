@@ -293,6 +293,7 @@ public class GamePlayMenu : MonoBehaviour
     // }
     public void ShowAutoPlacePopup()
     {
+        // hintSystem.OnAutoPlace1();
         LevelDetailsManager.Instance.StopTimer();
         AudioManager.Instance.PlayButtonClick();
 
@@ -337,7 +338,7 @@ public class GamePlayMenu : MonoBehaviour
 #endif
 
             ClosedAutoPlacePopup();         
-            hintSystem.ShowAutoPlaceAfterCoinSpent(1);
+            hintSystem.OnAutoPlace1();
             StartCoroutine(StartTimerAfterHint());
         }else
         {
@@ -378,6 +379,9 @@ public class GamePlayMenu : MonoBehaviour
         {
             LevelDetailsManager.Instance.StopTimer();
             undoPopup?.ShowPopup();
+
+            // hintSystem.ShowUndoAfterCoinSpent(1);
+
         }
         else
         {
@@ -418,7 +422,7 @@ public class GamePlayMenu : MonoBehaviour
             GooglePlayManager.Instance.SaveGame(GooglePlayManager.Instance.playerData);
 #endif  
             ClosedUndoPopup();         
-            hintSystem.ShowUndoAfterCoinSpent(1);
+            hintSystem.OnUndo1();
             StartCoroutine(StartTimerAfterHint());
         }else
         {

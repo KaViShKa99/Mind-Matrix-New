@@ -105,6 +105,8 @@ if (GooglePlayManager.Instance != null && GooglePlayManager.Instance.playerData 
 
     public void SetSelectedLevel(int level)
     {
+        GameStartManager.StartMode = GameStartMode.SelectedLevel;
+
         SelectedLevel = level;
         PlayerPrefs.SetInt("SelectedLevel", level);
         PlayerPrefs.Save();

@@ -45,17 +45,21 @@ public class PuzzleManager : MonoBehaviour
 
     void Start()
     {
-        // if (!LevelPlayCounter.Instance.skipNextStartCount)
-        // {
-        //     LevelPlayCounter.Instance.OnLevelPlayed();
-        // }
-        // LevelPlayCounter.Instance.skipNextStartCount = false;
-
-
+ 
         LevelDetailsManager.Instance.StartTimer();
-        // AdsManager.Instance.LoadBanner();
 
-        currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
+        if (GameStartManager.StartMode == GameStartMode.SelectedLevel)
+        {
+            currentLevel = PlayerPrefs.GetInt("SelectedLevel", 1);
+        }
+        else if (GameStartManager.StartMode == GameStartMode.UnlockedLevel)
+        {
+            currentLevel = PlayerPrefs.GetInt("UnlockedLevel", 1);
+        }
+        else
+        {
+            currentLevel = 1; // fallback safety
+        }
 
         // Adjust difficulty based on level
         SetLevelDifficulty(currentLevel);
@@ -131,7 +135,7 @@ public class PuzzleManager : MonoBehaviour
 
             switch (level)
             {
-                case 13: shuffleMoves = 2; moveCount = 20; elapsedTime = 5; break;
+                case 13: shuffleMoves = 2; moveCount = 20; elapsedTime = 60; break;
                 case 14: shuffleMoves = 4; moveCount = 20; elapsedTime = 60; break;
                 case 15: shuffleMoves = 6; moveCount = 22; elapsedTime = 60; break;
                 case 16: shuffleMoves = 8; moveCount = 24; elapsedTime = 60; break;
@@ -230,7 +234,7 @@ public class PuzzleManager : MonoBehaviour
                 case 98: shuffleMoves = 132; moveCount = 186; elapsedTime = 435; break;
                 case 99: shuffleMoves = 134; moveCount = 188; elapsedTime = 440; break;
                 case 100: shuffleMoves = 136; moveCount = 190; elapsedTime = 300; break;
-                case 101: shuffleMoves = 137; moveCount = 190; elapsedTime = 310; break;
+                case 101: shuffleMoves = 137; moveCount = 190; elapsedTime = 310; break; //save 54
                 case 102: shuffleMoves = 138; moveCount = 190; elapsedTime = 320; break;
                 case 103: shuffleMoves = 139; moveCount = 190; elapsedTime = 330; break;
                 case 104: shuffleMoves = 140; moveCount = 190; elapsedTime = 340; break;
@@ -240,8 +244,8 @@ public class PuzzleManager : MonoBehaviour
                 case 108: shuffleMoves = 144; moveCount = 190; elapsedTime = 380; break;
                 case 109: shuffleMoves = 145; moveCount = 190; elapsedTime = 390; break;
                 case 110: shuffleMoves = 146; moveCount = 190; elapsedTime = 400; break;
-                case 111: shuffleMoves = 147; moveCount = 190; elapsedTime = 410; break;
-                case 112: shuffleMoves = 148; moveCount = 190; elapsedTime = 420; break;
+                case 111: shuffleMoves = 148; moveCount = 190; elapsedTime = 410; break;
+                case 112: shuffleMoves = 150; moveCount = 190; elapsedTime = 420; break;
                 default: shuffleMoves = 2; moveCount = 56; elapsedTime = 110; break;
             }
         }

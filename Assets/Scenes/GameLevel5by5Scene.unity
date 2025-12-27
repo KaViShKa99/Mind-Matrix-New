@@ -3694,8 +3694,10 @@ MonoBehaviour:
   checker: {fileID: 416654156}
   popupCoinStart: {fileID: 941480436}
   coinUITopRight: {fileID: 1910060158}
+  ftueManager: {fileID: 0}
   slideDuration: 0.05
   gridSize: 3
+  ftueLocked: 0
 --- !u!224 &537297847
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8187,7 +8189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2256931789357157456, guid: 82842119c1dc841508d9b01eeaf57c9b, type: 3}
+  m_Sprite: {fileID: -4908063949233936981, guid: 794da01651a804084811adc53377c280, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11234,7 +11236,6 @@ MonoBehaviour:
   arrowPrefab: {fileID: 2888304655538850241, guid: 910a0354d609e42cf96a1d69dd8bc690, type: 3}
   arrowDuration: 0.8
   maxHintSteps: 3
-  adWatchPopup: {fileID: 319967520}
   gridSize: 3
 --- !u!1 &1349076185
 GameObject:
@@ -16505,7 +16506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Auto Move (2 Step)
+  m_text: Auto Move (1 Step)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d69e9fe2baae24220b597279ce9d3c62, type: 2}
   m_sharedMaterial: {fileID: -2877882063748528698, guid: d69e9fe2baae24220b597279ce9d3c62, type: 2}

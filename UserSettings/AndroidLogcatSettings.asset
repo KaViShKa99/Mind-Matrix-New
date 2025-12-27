@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "29281JEGR02214",
         "name": "com.krhatch.mindmatrix",
-        "processId": 12436,
+        "processId": 6417,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -84,6 +84,66 @@
             "deviceId": "29281JEGR02214",
             "name": "com.krhatch.mindmatrix",
             "processId": 12436,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 28806,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 30017,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 22089,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 29069,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 3882,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 7370,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 22549,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 30892,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 3655,
+            "exited": false
+        },
+        {
+            "deviceId": "29281JEGR02214",
+            "name": "com.krhatch.mindmatrix",
+            "processId": 6417,
             "exited": false
         }
     ],
