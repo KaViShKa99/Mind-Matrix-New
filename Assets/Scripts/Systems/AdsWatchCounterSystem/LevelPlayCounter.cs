@@ -47,7 +47,7 @@ public class LevelPlayCounter : MonoBehaviour
 
         if (playCount >= 3)
         {
-            ForceRewardAd();
+            ForceInterstitialAd();
         }
     }
     public void OnLevelReset()
@@ -81,7 +81,6 @@ public class LevelPlayCounter : MonoBehaviour
     private void ForceRewardAd()
     {
         Debug.Log("⚠️ Must watch rewarded ad!");
-        // AdsManager.Instance.ShowRewarded(OnRewardWatched);
 
         if (AdsManager.Instance != null)
         {
@@ -105,11 +104,45 @@ public class LevelPlayCounter : MonoBehaviour
     {
         Debug.Log("🎉 Reward watched — counter reset!");
 
-        playCount = 0;
-        PlayerPrefs.SetInt(KEY_PLAY_COUNT, 0);
+        // playCount = 0;
+        // PlayerPrefs.SetInt(KEY_PLAY_COUNT, 0);
         resetCount = 0;
         PlayerPrefs.SetInt(KEY_RESET_COUNT, 0);
         levelCompleteCount = 0;
         PlayerPrefs.SetInt(KEY_LEVEL_COMPLETE_COUNT, 0);
     }
+
+    // ---------------------------------------------------------------
+    // 🎁 Force Interstitial Ad after 4 plays
+    // ---------------------------------------------------------------
+    private void ForceInterstitialAd()
+    {
+        Debug.Log("⚠️ Must watch interstitial ad!");
+
+        if (AdsManager.Instance != null)
+        {
+            AdsManager.Instance.ShowInterstitial(() =>
+            {
+                OnInterstitialWatched();
+
+            });
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ AdsManager not found — showing hint directly.");
+                OnInterstitialWatched();
+        }
+    }
+
+    // ---------------------------------------------------------------
+    // 🔁 After watching interstitial ad → Reset counter
+    // ---------------------------------------------------------------
+    private void OnInterstitialWatched()
+    {
+        Debug.Log("🎉 Interstital watched — counter reset!");
+        playCount = 0;
+        PlayerPrefs.SetInt(KEY_PLAY_COUNT, 0);
+    
+    }
+    
 }

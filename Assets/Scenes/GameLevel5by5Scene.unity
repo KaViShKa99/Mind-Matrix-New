@@ -438,6 +438,9 @@ MonoBehaviour:
   popupBox: {fileID: 1680269744}
   popupCanvasGroup: {fileID: 1680269745}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -1241,6 +1244,9 @@ MonoBehaviour:
   popupBox: {fileID: 1889504954}
   popupCanvasGroup: {fileID: 1889504956}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -1754,6 +1760,9 @@ MonoBehaviour:
   popupBox: {fileID: 2004563084}
   popupCanvasGroup: {fileID: 2004563090}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 1200594830}
+  nextButton: {fileID: 1751312082}
+  buttonFadeTime: 0.3
   starImages:
   - {fileID: 252923697}
   - {fileID: 743948414}
@@ -2558,6 +2567,9 @@ MonoBehaviour:
   popupBox: {fileID: 1177903364}
   popupCanvasGroup: {fileID: 1177903370}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -5877,7 +5889,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 31}
+  m_AnchoredPosition: {x: 0, y: -58}
   m_SizeDelta: {x: 379.21, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &737215983
@@ -8373,6 +8385,9 @@ MonoBehaviour:
   popupBox: {fileID: 1408412531}
   popupCanvasGroup: {fileID: 1408412532}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -9854,6 +9869,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190010954}
   m_CullTransparentMesh: 1
+--- !u!1 &1200594829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200594831}
+  - component: {fileID: 1200594830}
+  m_Layer: 5
+  m_Name: ActionButtons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!225 &1200594830
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200594829}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!224 &1200594831
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200594829}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1751312083}
+  - {fileID: 2135637717}
+  m_Father: {fileID: 2004563085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1203915870
 GameObject:
   m_ObjectHideFlags: 0
@@ -9974,6 +10039,9 @@ MonoBehaviour:
   popupBox: {fileID: 1996994978}
   popupCanvasGroup: {fileID: 1996994979}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -10989,6 +11057,9 @@ MonoBehaviour:
   popupBox: {fileID: 232173128}
   popupCanvasGroup: {fileID: 232173134}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -11026,6 +11097,9 @@ MonoBehaviour:
   popupBox: {fileID: 1453830682}
   popupCanvasGroup: {fileID: 1453830688}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -11417,6 +11491,9 @@ MonoBehaviour:
   popupBox: {fileID: 1113369692}
   popupCanvasGroup: {fileID: 1113369696}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -13989,7 +14066,7 @@ Transform:
   m_GameObject: {fileID: 1640842135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 27, z: 0}
+  m_LocalPosition: {x: 9, y: -17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15217,13 +15294,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751312082}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 726811935}
-  m_Father: {fileID: 2004563085}
+  m_Father: {fileID: 1200594831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16181,6 +16258,9 @@ MonoBehaviour:
   popupBox: {fileID: 746145040}
   popupCanvasGroup: {fileID: 746145042}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -16622,8 +16702,7 @@ RectTransform:
   - {fileID: 941480436}
   - {fileID: 1680645893}
   - {fileID: 1924306033}
-  - {fileID: 1751312083}
-  - {fileID: 2135637717}
+  - {fileID: 1200594831}
   m_Father: {fileID: 1852612318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -17830,6 +17909,9 @@ MonoBehaviour:
   popupBox: {fileID: 229536639}
   popupCanvasGroup: {fileID: 229536641}
   popupBackground: {fileID: 1203915872}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -17861,13 +17943,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135637716}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2057785283}
-  m_Father: {fileID: 2004563085}
+  m_Father: {fileID: 1200594831}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

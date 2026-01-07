@@ -86,7 +86,8 @@ public class AchievementManager : MonoBehaviour
         }
 
         TryUnlock("reach_5by5_stage", level >= 29);
-        TryUnlock("comp_58_puzzles", level >= 57);
+        // TryUnlock("comp_58_puzzles", level >= 57);
+        TryUnlock("comp_112_puzzles", level > 111);
 
         
        
@@ -164,7 +165,7 @@ public class AchievementManager : MonoBehaviour
                     case "reach_5by5_stage":
                         GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_rapid_fire_solver);
                         break;
-                    case "comp_58_puzzles":
+                    case "comp_112_puzzles":
                         GooglePlayManager.Instance.UnlockAchievement(GPGSIds.achievement_epic_journey);
                         break;
                 }

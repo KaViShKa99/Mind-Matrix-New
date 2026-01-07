@@ -283,14 +283,6 @@ public class GamePlayMenu : MonoBehaviour
     /// <summary>
     /// ///////////////////////////// auto place Buttons ////////////////////////////
     /// </summary>
-    // public void OnAutoPlaceHint1()
-    // {
-    //     AudioManager.Instance.PlayButtonClick();
-    //     if (hintSystem != null)
-    //     {
-    //         hintSystem.OnAutoPlace1();
-    //     }
-    // }
     public void ShowAutoPlacePopup()
     {
         // hintSystem.OnAutoPlace1();

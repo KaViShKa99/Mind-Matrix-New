@@ -259,16 +259,20 @@ public class TileManager : MonoBehaviour
             checker.OnPuzzleComplete();
             AudioManager.Instance.PlayLevelComplete();
             
-            LevelStageManager.Instance.UnlockNextLevel();
-
             int currentLevel = LevelStageManager.Instance.SelectedLevel;
+
+            if(currentLevel < 112)
+            {
+                LevelStageManager.Instance.UnlockNextLevel();
+            }
+
 
             if(CoinManager.Instance.HasLevelRewarded(currentLevel) == false)
             {
                  StartCoroutine(DelayedCoinFlyEffect());
             }
            
-            CoinManager.Instance.RewardLevel(currentLevel, 100);
+            CoinManager.Instance.RewardLevel(currentLevel, 50);
             AchievementManager.Instance.CheckPuzzleAchievements(LevelDetailsManager.Instance);
             
 #if UNITY_ANDROID || UNITY_IOS       

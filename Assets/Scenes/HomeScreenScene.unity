@@ -13635,6 +13635,9 @@ MonoBehaviour:
   popupBox: {fileID: 89737611}
   popupCanvasGroup: {fileID: 89737613}
   popupBackground: {fileID: 2848737}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -15034,6 +15037,9 @@ MonoBehaviour:
   popupBox: {fileID: 961111737}
   popupCanvasGroup: {fileID: 961111741}
   popupBackground: {fileID: 2848737}
+  actionButtonsCG: {fileID: 0}
+  nextButton: {fileID: 0}
+  buttonFadeTime: 0.3
   starImages: []
   filledStar: {fileID: 0}
   emptyStar: {fileID: 0}
@@ -19593,7 +19599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1576829170481567411, guid: 614d2b12805ed46e3bc20a77cd9e82d6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3153832384814416029, guid: 614d2b12805ed46e3bc20a77cd9e82d6, type: 3}
       propertyPath: m_Enabled

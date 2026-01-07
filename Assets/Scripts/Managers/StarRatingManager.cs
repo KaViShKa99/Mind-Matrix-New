@@ -154,8 +154,27 @@ public class StarRatingManager : MonoBehaviour
         float completionTime = LevelDetailsManager.Instance.GetUsedTime();
         int movesUsed = LevelDetailsManager.Instance.GetUsedMoves();
 
-        if (completionTime <= 10f && movesUsed <= 10) starCount = 3;
-        else if (completionTime <= 20f && movesUsed <= 20) starCount = 2;
+        // if (completionTime <= 10f && movesUsed <= 10) starCount = 3;
+        // else if (completionTime <= 20f && movesUsed <= 20) starCount = 2;
+
+        // 3x3 Puzzle (Levels 1 to 12)
+        if (levelIndex >= 1 && levelIndex <= 12)
+        {
+            if (completionTime <= 25f && movesUsed <= 20) starCount = 3;
+            else if (completionTime <= 30f && movesUsed <= 30) starCount = 2;
+        }
+        // 4x4 Puzzle (Levels 13 to 32)
+        else if (levelIndex >= 13 && levelIndex <= 32)
+        {
+            if (completionTime <= 35 && movesUsed <= 40) starCount = 3;
+            else if (completionTime <= 60 && movesUsed <= 45) starCount = 2;
+        }
+        // 5x5 Puzzle (Levels 33 to 112)
+        else if (levelIndex >= 33 && levelIndex <= 112)
+        {
+            if (completionTime <= 180f && movesUsed <= 200) starCount = 3;
+            else if (completionTime <= 200f && movesUsed <= 250) starCount = 2;
+        }
 
         SetStars(levelIndex, starCount);
     }
